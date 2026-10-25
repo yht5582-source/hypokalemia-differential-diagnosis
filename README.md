@@ -12,6 +12,7 @@
 |---|---|
 | `index.html` | 主程式，約 1,300 行，自給自足的單一檔案 |
 | `README.md` | 本文件 |
+| `tests.cjs` | 決策樹完整性、案例與計算機核心測試：`node tests.cjs` |
 | `claude/hypokalemia-decision-tree.md` | 決策樹內容主檔（存於 Claude Project），修訂內容時的參考 |
 
 Cowork artifact id：`hypokalemia-workup`（可從桌面版 artifact 側欄直接開啟）
@@ -39,14 +40,16 @@ Cowork artifact id：`hypokalemia-workup`（可從桌面版 artifact 側欄直�
 | Urine K/Cr | U<sub>K</sub> ÷ U<sub>Cr</sub> (mmol/mmol) |
 | Urine osmolar gap | 實測 U<sub>osm</sub> − [2(U<sub>Na</sub>+U<sub>K</sub>) + urea + glucose] ≈ 2 × U<sub>NH4</sub> |
 | Serum anion gap | Na⁺ − Cl⁻ − HCO₃⁻ |
+| Urine anion gap | U<sub>Na</sub> + U<sub>K</sub> − U<sub>Cl</sub> |
+| Urine Ca/Cr | 同時顯示 mg/mg 與 mmol/mmol（選填尿鈣） |
 | 估計缺鉀量 | 分段線性（K⁺ 4→3 ≈ 350 mmol；4→2 ≈ 750 mmol） |
 
-底部的「流程判讀」會綜合尿鉀排泄與酸鹼狀態，直接指出應該走哪一個分支。
+底部的「流程判讀」依 24h 尿鉀 → K/Cr → TTKG → FE<sub>K</sub> 的順序取第一個非交界值的指標，綜合酸鹼狀態指出分支，並可一鍵在逐步鑑別中開啟該步驟。指標互相矛盾、全部落在交界值或血鉀 ≥ 3.5 時會提示。尿液 osmolar gap 需要尿素才會計算；anion gap 可選填白蛋白校正。
 
 Creatinine 欄位可切換 mg/dL 或 mmol/L（換算係數 ÷ 11.312）。TTKG 在 U<sub>osm</sub> ≤ P<sub>osm</sub> 或 U<sub>Na</sub> ≤ 25 mmol/L 時會顯示無效警告。
 
 ### 3. 完整流程圖 Full chart
-由同一份決策資料**自動繪製**的左至右決策樹 —— 改 `TREE` 物件，流程圖跟著變，不會走鐘。可縮放 (30%–160%)、可直接列印成口袋卡。
+由同一份決策資料**自動繪製**的左至右決策樹 —— 改 `TREE` 物件，流程圖跟著變，不會走鐘。可縮放 (30%–160%)、可直接列印成口袋卡；點任一節點即跳到逐步鑑別的該步驟。
 
 ### 4. 治療補鉀 Treatment
 WAHT-PHA-020 的嚴重度分級表（含口服/靜脈劑量與監測頻率）、靜脈補鉀安全規範、治療五步驟、鉀鹽選擇（KCl vs KHCO₃ vs K citrate vs K phosphate）、特殊情境、ECG 與臨床表現。
@@ -124,11 +127,13 @@ WAHT-PHA-020 的嚴重度分級表（含口服/靜脈劑量與監測頻率）、
 
 這幾點是實作過程中經審閱發現、原始文獻本身即存在歧異或風險的地方：
 
-1. **尿 Ca/Cr 的單位** — Harrison's 演算法將 0.20 / 0.15 標示為 molar ratio，但這組數字實為 **mg/mg**（換算 mmol/mmol 須 × 2.82；Gitelman 常用標準為 < 0.20 mmol/mmol）。照字面套用會把 Gitelman 誤判到 Bartter 分支。頁面同時標註兩種單位並附警語。
+1. **尿 Ca/Cr 的單位** — mg/mg × 2.82 = mmol/mmol。高尿鈣採 > 0.20 mg/mg（≈ 0.57 mmol/mmol）；低尿鈣採 KDIGO 2017 Gitelman 標準 < 0.20 mmol/mmol（≈ 0.07 mg/mg）。v1.0 曾誤寫「0.15 mg/mg ≈ 0.20 mmol/mmol」（實為 0.42），v1.1 已更正；介於兩者之間時改看血鎂與發病年齡。
 2. **靜脈補鉀速率** — 僅採 NHS 的 10 mmol/hr（緊急且具連續心電圖監視可至 20 mmol/hr）。文獻中出現的 60 mmol/hour 未予採用。
 3. **DKA 的歸屬** — 屬高 anion gap 且 NH₄⁺ 排泄**增加**的分支，不放在 RTA（低 NH₄⁺）病因清單，僅於 RTA 節點以對照方式說明。
 4. **FE<sub>K</sub> 切點** — 內科學誌採 < 2%，另有文獻採 < 6.5%，兩者並陳並建議合併 TTKG 與 K/Cr 判讀。
-5. **缺鉀量估計** — 採分段線性使 K⁺ = 3.0 與 2.0 兩個引用點連續；細胞內移型低血鉀**不適用**此估計。
+5. **TTKG** — 原作者 Kamel & Halperin (2011) 已不建議使用，頁面保留但以 K/Cr 優先。
+6. **原發性高醛固酮症篩檢** — 依 2025 Endocrine Society 指引：所有高血壓病人篩檢、不必先停降壓藥即可初篩。
+7. **缺鉀量估計** — 採分段線性使 K⁺ = 3.0 與 2.0 兩個引用點連續；細胞內移型低血鉀**不適用**此估計。
 
 ---
 
@@ -137,7 +142,10 @@ WAHT-PHA-020 的嚴重度分級表（含口服/靜脈劑量與監測頻率）、
 1. 李忠政、黃文德、林石化。低血鉀的診斷與治療 (Diagnosis and Treatment of Hypokalemia)。內科學誌 J Intern Med Taiwan 2010;21:31-39 — 圖四、圖五鑑別診斷樹、表二尿鉀排泄指標、表三治療原則
 2. Jameson JL, Fauci AS, Kasper DL, Hauser SL, Longo DL, Loscalzo J. *Harrison's Principles of Internal Medicine*, 20th ed. — Diagnostic approach to hypokalemia
 3. Worcestershire Acute Hospitals NHS Trust. *Guideline for the Management of Hypokalaemia in Adults*, WAHT-PHA-020 v3 (2023) — 嚴重度分級、口服/靜脈補鉀劑量與注意事項
-4. Lin SH, Halperin ML. Hypokalemia: a practical approach to diagnosis and its genetic basis. *Curr Med Chem* 2007;14:1551-65
+4. Blanchard A, et al. Gitelman syndrome: KDIGO consensus. *Kidney Int* 2017;91:24-33
+5. Kamel KS, Halperin ML. *Curr Opin Nephrol Hypertens* 2011;20:547-54
+6. Endocrine Society. Primary Aldosteronism Clinical Practice Guideline (2025)
+7. Lin SH, Halperin ML. Hypokalemia: a practical approach to diagnosis and its genetic basis. *Curr Med Chem* 2007;14:1551-65
 
 ---
 
