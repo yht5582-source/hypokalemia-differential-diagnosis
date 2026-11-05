@@ -1,6 +1,6 @@
 # 低血鉀鑑別診斷互動流程 · Hypokalemia Interactive Workup
 
-單一 HTML 檔的低血鉀 (hypokalemia) 臨床決策輔助與教學工具。整合 Harrison's 20e 演算法、內科學誌《低血鉀的診斷與治療》(2010;21:31-39) 與 NHS WAHT-PHA-020 補鉀指引。
+單一 HTML 檔的低血鉀 (hypokalemia) 臨床決策輔助與教學工具。整合 Harrison's 20e 演算法、內科學誌《低血鉀的診斷與治療》(2010;21:31-39)、UpToDate 與 NHS WAHT-PHA-020 補鉀指引。目前版本 v2.0（2026-11-05）。
 
 **零相依、離線可用**：整份 CSS 與 JavaScript 內嵌於同一檔案，沒有 CDN、沒有建置流程、沒有網路請求。用瀏覽器直接開啟 `index.html` 即可。
 
@@ -10,12 +10,9 @@
 
 | 檔案 | 說明 |
 |---|---|
-| `index.html` | 主程式，約 1,300 行，自給自足的單一檔案 |
+| `index.html` | 主程式，自給自足的單一檔案 |
 | `README.md` | 本文件 |
-| `tests.cjs` | 決策樹完整性、案例與計算機核心測試：`node tests.cjs` |
-| `claude/hypokalemia-decision-tree.md` | 決策樹內容主檔（存於 Claude Project），修訂內容時的參考 |
-
-Cowork artifact id：`hypokalemia-workup`（可從桌面版 artifact 側欄直接開啟）
+| `tests.cjs` | 決策樹、示範病例、測驗、心智圖連結與計算機核心測試：`node tests.cjs` |
 
 ---
 
@@ -42,7 +39,7 @@ Cowork artifact id：`hypokalemia-workup`（可從桌面版 artifact 側欄直�
 | Serum anion gap | Na⁺ − Cl⁻ − HCO₃⁻ |
 | Urine anion gap | U<sub>Na</sub> + U<sub>K</sub> − U<sub>Cl</sub> |
 | Urine Ca/Cr | 同時顯示 mg/mg 與 mmol/mmol（選填尿鈣） |
-| 估計缺鉀量 | 分段線性（K⁺ 4→3 ≈ 350 mmol；4→2 ≈ 750 mmol） |
+| 估計缺鉀量 | 慢性低血鉀時，血鉀每低 1 mmol/L 約缺 200–400 mmol（範圍） |
 
 底部的「流程判讀」依 24h 尿鉀 → K/Cr → TTKG → FE<sub>K</sub> 的順序取第一個非交界值的指標，綜合酸鹼狀態指出分支，並可一鍵在逐步鑑別中開啟該步驟。指標互相矛盾、全部落在交界值或血鉀 ≥ 3.5 時會提示。尿液 osmolar gap 需要尿素才會計算；anion gap 可選填白蛋白校正。
 
@@ -57,14 +54,20 @@ WAHT-PHA-020 的嚴重度分級表（含口服/靜脈劑量與監測頻率）、
 ### 5. 檢驗參考 Lab panel
 內科學誌表二（五項尿鉀排泄指標的預期值與陷阱）、公式速查、鉀離子生理背景、四項臨床迷思。
 
-### 6. 案例測驗 Cases
-8 個臨床情境，涵蓋 TPP、原發性高醛固酮症、Gitelman、腸胃道流失、異位性 ACTH、toluene 濫用、自我催吐、甘草誘發之 AME。答題後顯示推理路徑與完整說明。
+### 6. 示範病例 Cases
+6 個逐步推理的虛構病例（loop 利尿劑併低血鎂、TPP、遠端 RTA、thiazide 併低血鈉、原發性高醛固酮症、嘔吐進行中）。可把數值帶入計算機，或在逐步鑑別中開啟。測試會逐步驗證每個病例的走法與計算結果。
+
+### 7. 測驗 Quiz
+20 題：基礎 6、進階 7、高階 7。答題後顯示推理路徑與說明，全部作答後依難度統計。紀錄不儲存。
+
+### 8. 心智圖 Mind map
+10 個分支的總覽，點任一項跳到對應步驟或分頁。可收合，列印時自動展開。內容為手寫資料 `MAP`，改決策樹時要一併檢查。
 
 ---
 
 ## 修改內容
 
-所有醫學內容集中在 `<script>` 內的三個資料物件，改資料不必動版面：
+所有醫學內容集中在 `<script>` 內的資料物件（`TREE`、`CASES`、`DEMOS`、`MAP`、`F`），改資料不必動版面：
 
 ### `TREE` — 決策樹
 ```js
@@ -100,6 +103,8 @@ WAHT-PHA-020 的嚴重度分級表（含口服/靜脈劑量與監測頻率）、
 ### `CASES` — 案例測驗
 ```js
 {
+  lv: 1,                         // 1 基礎、2 進階、3 高階
+  node: "end_shift",             // 對應的 TREE 節點
   story: "病史敘述",
   labs:  ["K⁺ 1.9 mmol/L", "TTKG 2"],   // 第一個空白前的字會自動加粗
   opts:  ["選項A","選項B","選項C","選項D"],
@@ -118,7 +123,7 @@ WAHT-PHA-020 的嚴重度分級表（含口服/靜脈劑量與監測頻率）、
 
 - **深色模式**：以 `prefers-color-scheme` 自動切換，跟隨系統設定
 - **響應式**：手機直式（390px）到桌機（1400px+）皆可用
-- **列印**：`@media print` 會隱藏導覽與按鈕、展開全部分頁；流程圖分頁另起新頁
+- **列印**：只印目前分頁，隱藏導覽與按鈕；流程圖自動縮放，心智圖自動展開
 - **無障礙**：分頁使用 `role="tablist"` / `aria-selected`；配色對比符合一般閱讀需求
 
 ---
@@ -133,7 +138,9 @@ WAHT-PHA-020 的嚴重度分級表（含口服/靜脈劑量與監測頻率）、
 4. **FE<sub>K</sub> 切點** — 內科學誌採 < 2%，另有文獻採 < 6.5%，兩者並陳並建議合併 TTKG 與 K/Cr 判讀。
 5. **TTKG** — 原作者 Kamel & Halperin (2011) 已不建議使用，頁面保留但以 K/Cr 優先。
 6. **原發性高醛固酮症篩檢** — 依 2025 Endocrine Society 指引：所有高血壓病人篩檢、不必先停降壓藥即可初篩。
-7. **缺鉀量估計** — 採分段線性使 K⁺ = 3.0 與 2.0 兩個引用點連續；細胞內移型低血鉀**不適用**此估計。
+7. **缺鉀量估計** — v2.0 改為範圍（每 1 mmol/L 約 200–400 mmol），不再顯示單一數字；細胞內移型、DKA 與高滲高血糖**不適用**。
+8. **24 小時尿鉀切點** — Harrison 用 15，UpToDate 用 25–30。v2.0 將 15–30 列為交界，改看下一項指標。
+9. **計算機看不到症狀** — TPP 的數字會落在「尿鉀低 + 酸鹼正常」，所以該終點與計算機都加上回到細胞內移的提示。
 
 ---
 
@@ -144,8 +151,12 @@ WAHT-PHA-020 的嚴重度分級表（含口服/靜脈劑量與監測頻率）、
 3. Worcestershire Acute Hospitals NHS Trust. *Guideline for the Management of Hypokalaemia in Adults*, WAHT-PHA-020 v3 (2023) — 嚴重度分級、口服/靜脈補鉀劑量與注意事項
 4. Blanchard A, et al. Gitelman syndrome: KDIGO consensus. *Kidney Int* 2017;91:24-33
 5. Kamel KS, Halperin ML. *Curr Opin Nephrol Hypertens* 2011;20:547-54
-6. Endocrine Society. Primary Aldosteronism Clinical Practice Guideline (2025)
+6. Adler GK, et al. Primary Aldosteronism: Endocrine Society Clinical Practice Guideline. *J Clin Endocrinol Metab* 2025;110:2453-95
 7. Lin SH, Halperin ML. Hypokalemia: a practical approach to diagnosis and its genetic basis. *Curr Med Chem* 2007;14:1551-65
+8. UpToDate: Evaluation of the adult patient with hypokalemia; Causes of hypokalemia in adults; Clinical manifestations and treatment of hypokalemia in adults（2026-06-24 版）
+9. Lin SH, Lin YF. *Am J Kidney Dis* 2001;37:620-3（propranolol）
+10. Umpierrez GE, et al. *Diabetes Care* 2024;47:1257-75（DKA 血鉀門檻）
+11. Verbalis JG, et al. *Am J Med* 2013;126(10 Suppl 1):S1-42（血鈉矯正上限）
 
 ---
 

@@ -94,6 +94,7 @@ section[role="tabpanel"].on{display:block}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 nav.tabs button:focus-visible{outline-color:#fff;outline-offset:-3px}
+@media(min-width:760px){nav.tabs{flex-wrap:wrap;overflow:visible}nav.tabs button{padding:11px 10px;font-size:13.5px}}
 .qcard:focus,.res:focus{outline:none}
 
 /* ---------- question card ---------- */
@@ -262,6 +263,46 @@ button.nd:hover{box-shadow:0 0 0 2px var(--accent)}
 .expl b{color:var(--ink)}
 .expl .h{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);font-weight:650;margin-bottom:6px}
 
+/* ---------- quiz extras ---------- */
+.lv{display:inline-block;font-family:inherit;font-size:11px;letter-spacing:.02em;padding:1px 8px;border-radius:999px;margin-left:6px;font-weight:600}
+.lv1{background:var(--ok-soft);color:var(--ok)}.lv2{background:var(--warn-soft);color:var(--warn)}.lv3{background:var(--danger-soft);color:var(--danger)}
+.qstrip{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.qn{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--line2);background:var(--panel);color:var(--ink2);font-family:var(--mono);font-size:12px;cursor:pointer;padding:0}
+.qn.lvb1{border-bottom-color:var(--ok)}.qn.lvb2{border-bottom-color:var(--warn)}.qn.lvb3{border-bottom-color:var(--danger)}
+.qn.lvb1,.qn.lvb2,.qn.lvb3{border-bottom-width:3px}
+.qn.ok{background:var(--ok-soft);color:var(--ok);font-weight:700}.qn.no{background:var(--danger-soft);color:var(--danger);font-weight:700}
+.qn.cur{outline:2px solid var(--accent);outline-offset:1px}
+.qsum{margin-top:14px;padding:16px 20px}.qsum .h{font-weight:650;font-size:15px}
+.qopt .mk{font-size:12px;white-space:nowrap;margin-left:10px}
+.expl:focus{outline:none}
+/* ---------- demo cases ---------- */
+.demotabs{display:grid;gap:8px;margin-bottom:14px;grid-template-columns:1fr}
+@media(min-width:560px){.demotabs{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.demotabs{grid-template-columns:repeat(3,1fr)}}
+.demobtn{text-align:left;font-family:inherit;font-size:13.5px;font-weight:600;line-height:1.4;padding:10px 13px;border-radius:9px;border:1.5px solid var(--line2);background:var(--panel);color:var(--ink);cursor:pointer}
+.demobtn:hover{border-color:var(--accent)}
+.demobtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.demobtn .dn{display:block;font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:600}
+.demobtn .dt{display:block;font-size:11.5px;color:var(--ink2);font-weight:400;margin-top:2px}
+.dh{font-size:18px;font-weight:650;margin:0}
+.dsteps{margin:0;padding-left:24px}
+.dsteps li{margin:0 0 10px}
+.dsteps .sq{font-size:12.5px;color:var(--ink3)}
+.dsteps .sa{font-size:13.8px;color:var(--ink2)}.dsteps .sa b{color:var(--accent)}
+#d-end:focus{outline:none}
+/* ---------- mind map ---------- */
+.maproot{background:var(--accent);color:#fff;border-radius:12px;padding:14px 18px;font-weight:650;font-size:17px;text-align:center;margin-bottom:12px}
+@media (prefers-color-scheme:dark){.maproot{color:#0f1216}}
+.maproot small{display:block;font-weight:400;font-size:12.5px;opacity:.92;margin-top:3px}
+.mapgrid{display:grid;gap:12px;grid-template-columns:1fr;align-items:start}
+@media(min-width:720px){.mapgrid{grid-template-columns:1fr 1fr}}
+@media(min-width:1040px){.mapgrid{grid-template-columns:repeat(3,1fr)}}
+.mapb{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:10px;padding:10px 12px}
+.mapb summary{cursor:pointer;font-weight:650;font-size:14px;color:var(--c);min-height:24px}
+.mapb ul{list-style:none;margin:8px 0 0;padding:0}
+.mapl{display:block;width:100%;text-align:left;font-family:inherit;font-size:13px;line-height:1.45;color:var(--ink2);background:none;border:0;border-left:2px solid var(--line2);padding:5px 8px;margin:2px 0;cursor:pointer}
+.mapl:hover{color:var(--ink);border-left-color:var(--c);background:var(--bg)}
+
 /* ---------- misc ---------- */
 .cards{display:grid;gap:14px}
 @media(min-width:820px){.cards.c2{grid-template-columns:1fr 1fr}}
@@ -280,9 +321,10 @@ footer ol{padding-left:20px;margin:8px 0 0}
 @media print{
   :root{--bg:#fff;--panel:#fff;--ink:#000;--ink2:#222;--ink3:#555;--line:#ccc;--line2:#bbb;--shadow:none}
   header.top{background:#fff;color:#000;padding-top:0}
-  nav.tabs,.toolbar,.chartbar,.btn{display:none!important}
-  section[role="tabpanel"]{display:block!important;break-before:page}
-  .chartscroll{overflow:visible;border:0}
+  nav.tabs,.toolbar,.chartbar,.btn,.quizhead,.qstrip,.demotabs{display:none!important}
+  section[role="tabpanel"]{animation:none}
+  .chartscroll{overflow:visible;border:0;padding:0}
+  .mapgrid{grid-template-columns:1fr 1fr!important}.mapb{break-inside:avoid}.mapb summary::before{display:none}
   body{background:#fff;font-size:11px}
 }
 </style>
@@ -293,14 +335,16 @@ footer ol{padding-left:20px;margin:8px 0 0}
   <div class="wrap">
     <div class="kbadge">SERUM K⁺ &lt; 3.5 mmol/L</div>
     <h1>低血鉀鑑別診斷互動流程</h1>
-    <div class="sub">Hypokalemia — interactive differential diagnosis &amp; management workup. 整合 Harrison's Principles of Internal Medicine (20e)、內科學誌《低血鉀的診斷與治療》(2010;21:31-39)、WAHT-PHA-020 NHS 低血鉀處置指引。</div>
+    <div class="sub">Hypokalemia — interactive differential diagnosis &amp; management workup. 整合 Harrison's Principles of Internal Medicine (20e)、內科學誌《低血鉀的診斷與治療》(2010;21:31-39)、UpToDate、WAHT-PHA-020 NHS 低血鉀處置指引。</div>
     <nav class="tabs" role="tablist" aria-label="功能分頁">
       <button role="tab" aria-selected="true" data-tab="dx" id="tabbtn-dx" aria-controls="tab-dx">逐步鑑別 Step-by-step</button>
       <button role="tab" aria-selected="false" data-tab="calc" id="tabbtn-calc" aria-controls="tab-calc">檢驗計算機 Calculator</button>
       <button role="tab" aria-selected="false" data-tab="chart" id="tabbtn-chart" aria-controls="tab-chart">完整流程圖 Full chart</button>
       <button role="tab" aria-selected="false" data-tab="tx" id="tabbtn-tx" aria-controls="tab-tx">治療補鉀 Treatment</button>
       <button role="tab" aria-selected="false" data-tab="labs" id="tabbtn-labs" aria-controls="tab-labs">檢驗參考 Lab panel</button>
-      <button role="tab" aria-selected="false" data-tab="quiz" id="tabbtn-quiz" aria-controls="tab-quiz">案例測驗 Cases</button>
+      <button role="tab" aria-selected="false" data-tab="demo" id="tabbtn-demo" aria-controls="tab-demo">示範病例 Cases</button>
+      <button role="tab" aria-selected="false" data-tab="quiz" id="tabbtn-quiz" aria-controls="tab-quiz">測驗 Quiz</button>
+      <button role="tab" aria-selected="false" data-tab="map" id="tabbtn-map" aria-controls="tab-map">心智圖 Mind map</button>
     </nav>
   </div>
 </header>
@@ -328,6 +372,7 @@ footer ol{padding-left:20px;margin:8px 0 0}
       <div>
         <div class="outgrid" id="outs"></div>
         <div class="verdict" id="verdict" aria-live="polite"></div>
+        <div class="note" id="calc-banner" hidden style="margin-top:14px"></div>
         <div class="note" style="margin-top:14px">
           <b>單位提醒：</b>Creatinine mg/dL ÷ 11.312 = mmol/L；Calcium mg/dL ÷ 4.008 = mmol/L；Cr、Ca 欄位可切換單位。TTKG 僅在 <span class="mono">尿液滲透壓 &gt; 血漿滲透壓</span> 且 <span class="mono">尿鈉 &gt; 25 mmol/L</span> 時有效。
         </div>
@@ -338,7 +383,7 @@ footer ol{padding-left:20px;margin:8px 0 0}
   <section role="tabpanel" id="tab-chart" aria-labelledby="tabbtn-chart">
     <div class="sechead">
       <h2>完整鑑別診斷流程圖</h2>
-      <p>由同一份決策資料自動繪製，可直接列印 (Ctrl/Cmd + P) 作為口袋卡。橫向可捲動；<b>點任一節點</b>即跳到逐步鑑別的該步驟。</p>
+      <p>由同一份決策資料自動繪製，列印時只印目前分頁並自動縮放，可作為口袋卡。橫向可捲動；<b>點任一節點</b>即跳到逐步鑑別的該步驟。</p>
     </div>
     <div class="chartbar">
       <button class="btn" id="zoom-out">− 縮小</button>
@@ -355,8 +400,8 @@ footer ol{padding-left:20px;margin:8px 0 0}
 
   <section role="tabpanel" id="tab-quiz" aria-labelledby="tabbtn-quiz">
     <div class="sechead">
-      <h2>臨床案例測驗</h2>
-      <p>每題提供病史與檢驗數值，依流程推理後選出最可能的診斷。答題後會顯示完整推理路徑。</p>
+      <h2>測驗 Quiz</h2>
+      <p>共 20 題：基礎 6、進階 7、高階 7。高階題考單位換算、藥物干擾與合併電解質問題。作答後顯示推理路徑與說明；重新整理頁面即清除紀錄。</p>
     </div>
     <div class="quizhead">
       <div class="score" id="score"></div>
@@ -366,7 +411,31 @@ footer ol{padding-left:20px;margin:8px 0 0}
         <button class="btn" id="q-reset">↺ 重來</button>
       </div>
     </div>
+    <div class="qstrip" id="qstrip" aria-label="題號"></div>
     <div class="panel vig" id="quizbox"></div>
+    <div class="panel vig qsum" id="qsummary" hidden aria-live="polite"></div>
+  </section>
+
+  <section role="tabpanel" id="tab-demo" aria-labelledby="tabbtn-demo">
+    <div class="sechead">
+      <h2>示範病例</h2>
+      <p>六個病例依本頁流程一步步推理，每一步可帶入計算機或在逐步鑑別中重走一次。先自己想，再按下一步。</p>
+    </div>
+    <div class="demotabs" id="demotabs"></div>
+    <div class="panel vig" id="democard"></div>
+  </section>
+
+  <section role="tabpanel" id="tab-map" aria-labelledby="tabbtn-map">
+    <div class="sechead">
+      <h2>低血鉀鑑別心智圖</h2>
+      <p>整個流程的一頁總覽。點任一項可跳到對應步驟。</p>
+    </div>
+    <div class="chartbar">
+      <button class="btn" id="map-open">全部展開</button>
+      <button class="btn" id="map-close">全部收合</button>
+      <button class="btn" onclick="window.print()">🖨 列印 Print</button>
+    </div>
+    <div id="mapwrap"></div>
   </section>
 
 </div>
@@ -383,9 +452,13 @@ footer ol{padding-left:20px;margin:8px 0 0}
       <li>Lin SH, Halperin ML. Hypokalemia: a practical approach to diagnosis and its genetic basis. <i>Curr Med Chem</i> 2007;14:1551-65.</li>
       <li>Blanchard A, et al. Gitelman syndrome: consensus and guidance from a KDIGO Controversies Conference. <i>Kidney Int</i> 2017;91:24-33. — 低尿鈣定義 spot Ca/Cr &lt; 0.2 mmol/mmol。</li>
       <li>Kamel KS, Halperin ML. Intrarenal urea recycling leads to a higher rate of renal excretion of potassium: an hypothesis with clinical implications. <i>Curr Opin Nephrol Hypertens</i> 2011;20:547-54. — TTKG 原作者建議改用 K/Cr。</li>
-      <li>Endocrine Society. Primary Aldosteronism: An Endocrine Society Clinical Practice Guideline (2025). — 篩檢對象與 ARR 判讀。</li>
+      <li>Adler GK, et al. Primary Aldosteronism: An Endocrine Society Clinical Practice Guideline. <i>J Clin Endocrinol Metab</i> 2025;110:2453-95. — 篩檢對象與 ARR 判讀。</li>
+      <li>UpToDate: Evaluation of the adult patient with hypokalemia; Causes of hypokalemia in adults; Clinical manifestations and treatment of hypokalemia in adults（2026-06-24 版）。— 24 小時尿鉀 25–30 mmol、K/Cr 1.5 mmol/mmol、尿鈉尿氯線索、缺鉀量、反彈性高血鉀。</li>
+      <li>Lin SH, Lin YF. Propranolol rapidly reverses paralysis, hypokalemia, and hypophosphatemia in thyrotoxic periodic paralysis. <i>Am J Kidney Dis</i> 2001;37:620-3. — 口服 3 mg/kg，2 例報告。</li>
+      <li>Umpierrez GE, et al. Hyperglycemic crises in adults with diabetes: a consensus report. <i>Diabetes Care</i> 2024;47:1257-75. — 胰島素前血鉀門檻。</li>
+      <li>Verbalis JG, et al. Diagnosis, evaluation, and treatment of hyponatremia: expert panel recommendations. <i>Am J Med</i> 2013;126(10 Suppl 1):S1-42. — 高風險族群血鈉矯正目標與上限。</li>
     </ol>
-    <p style="margin-top:12px">v1.1 · 2026-10-25 除錯更新</p>
+    <p style="margin-top:12px">v2.0 · 2026-11-05 除錯、示範病例、20 題測驗與心智圖</p>
   </div>
 </footer>
 
@@ -418,7 +491,7 @@ emergency:{
       "<b>靜脈 KCl</b>：起始 40 mmol/L；周邊靜脈濃度上限 40 mmol/L、速率 10 mmol/hr。",
       "<b>緊急狀況</b>可提高至 20 mmol/hr，但<b>必須</b>有心臟監視器；更高濃度需中央靜脈導管 (CVC) 並於 CCU/ICU 執行。",
       "24 小時總量上限約 <b>2–3 mmol/kg</b>。",
-      "每數小時追蹤 U&amp;E；可用血液氣體分析 (blood gas) 取得快速鉀值。",
+      "血鉀<b>每 2–4 小時</b>追蹤；可用血液氣體分析 (blood gas) 取得快速鉀值。",
       "<b>同步矯正低血鎂</b> — 低血鎂會造成頑固性低血鉀，不補鎂則補鉀無效。"
     ]},
     {h:"務必避免 Avoid",li:[
@@ -502,7 +575,7 @@ end_shift:{
     {n:"鋇中毒 Barium intoxication",d:"阻斷細胞膜 K⁺ channel（非影響 Na-K pump）"},
     {n:"Theophylline / 咖啡因中毒",d:"β-adrenergic 效應 + 抑制磷酸二酯酶"},
     {n:"Chloroquine 過量",d:"同樣是阻斷 K⁺ channel"},
-    {n:"代謝性鹼中毒 Alkalosis",d:"pH 上升驅使 K⁺ 進入細胞（每 pH ↑0.1，K⁺ ↓ 約 0.3 mmol/L）"},
+    {n:"代謝性鹼中毒 Alkalosis",d:"pH 上升驅使 K⁺ 進入細胞（每 pH ↑0.1，K⁺ 下降不到 0.4 mmol/L，效應有限）"},
     {n:"低體溫 Hypothermia"},
     {n:"合成代謝狀態 Anabolic state",d:"惡性貧血給 B₁₂/葉酸、GM-CSF 治療後大量造血細胞生成攝取 K⁺"},
     {n:"Risperidone / Quetiapine 過量"}
@@ -511,9 +584,9 @@ end_shift:{
     "<b>檢查甲狀腺功能</b> (TSH, free T4) — 亞洲年輕男性反覆麻痺務必排除 TPP。",
     "同步驗 <b>血磷</b>：低血磷 + 低血鉀 + 麻痺 → 強烈支持 TPP/HPP。",
     "尿鉀低、無酸鹼異常可佐證。",
-    "<b>治療</b>：移除誘因、保守補鉀 (每次 10 mmol 分次)、TPP 給 propranolol 1–3 mg/kg。"
+    "<b>治療</b>：移除誘因、少量低速補鉀並追蹤血鉀；TPP 可給非選擇性 β-blocker（Lin 2001：口服 propranolol 3 mg/kg，2 例報告），先排除氣喘等禁忌。"
   ]}],
-  alarm:"此分支<b>最常見的醫源性傷害是補鉀過量</b>：麻痺緩解後細胞內 K⁺ 回流，可出現危險的反彈性高血鉀。"
+  alarm:"此分支<b>最常見的醫源性傷害是補鉀過量</b>：週期性麻痺治療後有 <b>40–60%</b> 的發作出現反彈性高血鉀，可致命。"
 },
 
 /* ---------- Q5 urine K excretion ---------- */
@@ -522,7 +595,7 @@ urinek:{
   title:"尿液鉀排泄率是低還是高？",
   en:"Rate of urinary K⁺ excretion — the pivotal branch point",
   why:"這是整個鑑別診斷的<b>分水嶺</b>：腎臟若運作正常，面對低血鉀應該<b>保留</b>鉀（尿鉀低）。若尿鉀仍高，代表流失來自<b>腎臟</b>。單看尿鉀濃度不可靠（受尿量影響），應以每日排泄量、K/Cr 比或 TTKG 校正。",
-  cutoffs:["<b>24 小時尿鉀</b>：&lt; 15 mmol/day = 低；&gt; 15 mmol/day = 高","<b>Spot urine K/Cr</b>：&lt; 1.5–2.0 mmol/mmol (&lt;15 mmol/g Cr) = 低；&gt; 2.0 = 高","<b>FE<sub>K</sub></b>：內科學誌表二以低血鉀時應 &lt; 2% 為腎外流失、&gt; 2% 提示腎性流失；另有文獻採 &lt; 6.5% 為腎外流失切點，&gt; 10% 則明確為腎性流失。<b>不建議單獨使用</b>","<b>TTKG</b>：&lt; 3 = 低；&gt; 4（部分文獻 &gt;7）= 腎性流失。⚠ 原作者 Kamel &amp; Halperin (2011) 因髓質尿素再循環已<b>不建議</b>使用，優先採 K/Cr","單獨用尿鉀濃度 15–20 mmol/L 判斷易誤判（85% 慢性腎性流失病人尿鉀 &lt; 20 mmol/L）"],
+  cutoffs:["<b>24 小時尿鉀</b>：&lt; 15 mmol/day = 低（Harrison）；&gt; 30 mmol/day = 腎性流失（UpToDate：腎外流失可降到 25–30 以下）；15–30 為交界，須合併其他指標","<b>Spot urine K/Cr</b>：&lt; 1.5 mmol/mmol (≈ 13 mmol/g Cr) = 低；1.5–2.0 為交界；&gt; 2.0 = 高。⚠ 肌肉量很少時肌酸酐排泄低，比值會高估","<b>FE<sub>K</sub></b>：內科學誌表二以低血鉀時應 &lt; 2% 為腎外流失、&gt; 2% 提示腎性流失；另有文獻採 &lt; 6.5% 為腎外流失切點，&gt; 10% 則明確為腎性流失。<b>不建議單獨使用</b>","<b>TTKG</b>：&lt; 3 = 低；&gt; 4（部分文獻 &gt;7）= 腎性流失。⚠ 原作者 Kamel &amp; Halperin (2011) 因髓質尿素再循環已<b>不建議</b>使用，本頁優先採 K/Cr；UpToDate 認為此疑慮未定論，臨床仍常與 K/Cr 併用","單獨用尿鉀濃度 15–20 mmol/L 判斷易誤判（85% 慢性腎性流失病人尿鉀 &lt; 20 mmol/L）"],
   opts:[
     {l:"低 Low",s:"腎外流失 / 遠期(已停止)的腎臟流失 — extrarenal or remote renal loss",go:"low_ab"},
     {l:"高 High",s:"腎臟持續流失 — renal K⁺ wasting",go:"high_ab"}
@@ -554,7 +627,8 @@ end_low_acidosis:{
     {n:"吸收不良 Malabsorption",d:"乳糜瀉、慢性胰臟炎"},
     {n:"絨毛狀腺瘤 Villous adenoma",d:"大量分泌黏液富含 K⁺；VIPoma 亦同"},
     {n:"陽離子交換樹脂 Cationic resin",d:"如 Kayexalate；於腸道以 Na⁺ 換走 K⁺"},
-    {n:"輸尿管分流 Ureteral diversion",d:"腸段吸收氯離子並分泌 HCO₃⁻"}
+    {n:"輸尿管分流 Ureteral diversion",d:"腸段吸收氯離子並分泌 HCO₃⁻"},
+    {n:"Ogilvie 症候群 Acute colonic pseudo-obstruction",d:"結腸分泌性腹瀉，鉀分泌增加"}
   ],
   sections:[{h:"確認 Confirm",li:[
     "詳細大便量與性狀病史；懷疑瀉劑濫用可驗 <b>大便瀉劑篩檢 / 大便滲透壓間隙</b>。",
@@ -574,7 +648,9 @@ end_low_normal:{
     {n:"遠期流失 Remote loss",d:"腹瀉或嘔吐已停止、利尿劑已停用，腎臟已開始保留鉀"},
     {n:"細胞內移的恢復期",d:"若尚未完全排除，回頭檢視 Step 4"}
   ],
-  sections:[{h:"處置",li:["補充口服鉀鹽並矯正體液；矯正低血鎂。","移除誘因後多可自行恢復；若持續低血鉀，重新收集尿液（可能一開始收得太晚）。"]}]
+  sections:[{h:"處置",li:["補充口服鉀鹽並矯正體液；矯正低血鎂。","移除誘因後多可自行恢復；若持續低血鉀，重新收集尿液（可能一開始收得太晚）。"]}],
+  alarm:"<b>急性無力或麻痺</b>的病人，尿鉀低加上酸鹼正常更可能是<b>細胞內移 (TPP/HPP)</b>，請回到 Step 4。此時一般補鉀可能造成反彈性高血鉀。",
+  next:{l:"急性無力 → 回到細胞內移",go:"shift"}
 },
 end_low_alkalosis:{
   type:"end", kind:"dx", step:"終點",
@@ -587,7 +663,8 @@ end_low_alkalosis:{
     {n:"神經性厭食 Anorexia nervosa"},
     {n:"慢性酒癮 Chronic alcoholism",d:"常合併低血鎂、低血磷"},
     {n:"大量流汗 Excessive sweating"},
-    {n:"陽離子交換樹脂 Cationic resins"}
+    {n:"陽離子交換樹脂 Cationic resins"},
+    {n:"瀉劑濫用（少數）",d:"部分病人呈鹼中毒而非酸中毒，尿鈉明顯低於尿氯"}
   ],
   sections:[{h:"確認 Confirm",li:[
     "<b>尿液氯離子 &lt; 10 mmol/L</b> → 支持嘔吐/遠期利尿劑（氯反應型鹼中毒，chloride-responsive）。",
@@ -602,24 +679,27 @@ high_ab:{
   title:"酸鹼狀態為何？",
   en:"Acid-base status in renal K⁺ wasting",
   why:"腎性鉀流失幾乎都合併酸鹼異常，酸鹼方向可迅速把數十種病因切成三大群。<b>代謝性鹼中毒是最大宗</b>（利尿劑、嘔吐、礦物皮質酮過多、腎小管病變）。",
-  cutoffs:["同時看血清 anion gap；AG 上升之酸中毒考慮 DKA、toluene","若酸鹼近乎正常但尿鉀高 → 考慮不可再吸收陰離子"],
+  cutoffs:["同時看血清 anion gap；AG 上升之酸中毒考慮 DKA、toluene","若酸鹼近乎正常但尿鉀高 → 先驗血鎂，再考慮不可再吸收陰離子；血壓高者不排除原發性高醛固酮症"],
   opts:[
     {l:"代謝性酸中毒",s:"Metabolic acidosis → 續驗尿液 NH₄⁺",go:"high_acid_nh4"},
     {l:"代謝性鹼中毒",s:"Metabolic alkalosis → 續看血壓",go:"high_alk_bp"},
-    {l:"接近正常 / 不定",s:"Variable — 不可再吸收陰離子",go:"end_nonreab"}
+    {l:"接近正常 / 不定",s:"Variable — 低血鎂、不可再吸收陰離子",go:"end_nonreab"}
   ]
 },
 end_nonreab:{
   type:"end", kind:"dx", step:"終點",
-  title:"不可再吸收陰離子 Non-reabsorbable anions",
-  en:"Anions other than HCO₃⁻ delivered to the distal nephron",
-  lead:"陰離子隨鈉離子送到遠端腎元卻無法被再吸收，使管腔內電位更負 → <b>驅動 K⁺ 分泌增加</b>。",
+  title:"酸鹼不定：低血鎂 / 不可再吸收陰離子",
+  en:"Renal K⁺ wasting without a clear acid-base signal",
+  lead:"先排除低血鎂。不可再吸收陰離子隨鈉離子送到遠端腎元，使管腔內電位更負 → <b>驅動 K⁺ 分泌增加</b>。",
   causes:[
+    {n:"低血鎂 Hypomagnesemia",d:"低血鉀病人最多四成合併低血鎂。cisplatin、gentamicin、ifosfamide、利尿劑、腹瀉會同時丟鉀與鎂；「補不起來」時先驗鎂",key:1},
     {n:"Hippurate",d:"甲苯 (toluene) 吸入 / 強力膠吸食 (glue sniffing) 的代謝產物",key:1},
     {n:"高劑量青黴素類 Penicillins",d:"penicillin、nafcillin、carbenicillin、ticarcillin 之陰離子",key:1},
     {n:"其他有機陰離子",d:"β-hydroxybutyrate（DKA）、乳酸鹽、bicarbonaturia（近端 RTA、acetazolamide）"}
   ],
-  sections:[{h:"確認 Confirm",li:["用藥史與物質使用史（吸膠、油漆稀釋劑）。","尿液 anion gap / 滲透壓間隙評估 NH₄⁺ 排泄。","停用致病藥物、補鉀補鎂即可回復。"]}]
+  sections:[{h:"確認 Confirm",li:["<b>血鎂</b>、用藥史與物質使用史（吸膠、油漆稀釋劑）。","尿液 anion gap / 滲透壓間隙評估 NH₄⁺ 排泄。","停用致病藥物、補鉀補鎂即可回復。"]}],
+  note:"<b>HCO₃⁻ 正常不排除原發性高醛固酮症。</b>血壓高的病人請繼續走醛固酮軸線。",
+  next:{l:"血壓高 → 醛固酮軸線",go:"aldo"}
 },
 
 high_acid_nh4:{
@@ -672,7 +752,7 @@ high_alk_bp:{
   title:"血壓為何？",
   en:"Blood pressure (and volume status)",
   why:"<b>血壓是區分「礦物皮質酮過多」與「腎小管/腸胃道流失」的關鍵。</b>高血壓 + 低血鉀 + 代謝性鹼中毒 → 想到醛固酮或類醛固酮作用過強；血壓正常/偏低 → 體液不足驅動的續發性高醛固酮（利尿劑、嘔吐、Bartter/Gitelman）。",
-  cutoffs:["高血壓：持續 &gt; 140/90，尤其年輕、頑固型或需多種降壓藥","正常/偏低：合併姿勢性低血壓、體液不足徵象"],
+  cutoffs:["<b>先問是否正在用利尿劑</b>：高血壓病人服 thiazide 最常見；偷用利尿劑也會是高血壓 + 尿鉀高 + 鹼中毒。找到就先停藥或換藥再評估","高血壓：持續 &gt; 140/90，尤其年輕、頑固型或需多種降壓藥","正常/偏低：合併姿勢性低血壓、體液不足徵象"],
   opts:[
     {l:"高血壓 High BP",s:"→ 醛固酮 / 腎素 / 皮質醇軸線",go:"aldo"},
     {l:"正常或偏低 Normal / low",s:"→ 尿液氯離子",go:"alk_ucl"}
@@ -683,7 +763,7 @@ aldo:{
   title:"血漿醛固酮 (aldosterone) 濃度？",
   en:"Plasma aldosterone concentration",
   why:"高血壓 + 低血鉀 + 鹼中毒的病人，先看醛固酮本身高不高：<b>醛固酮高</b> → 真的是醛固酮過多，再用腎素分辨原發或續發；<b>醛固酮低</b> → 卻仍有礦物皮質酮效應，代表另有物質在活化 ENaC/MR，看皮質醇即可分群。",
-  cutoffs:["篩檢同時抽 <b>aldosterone + renin</b>（算 ARR）；<b>腎素被壓抑 + 醛固酮不低</b>是核心。ARR 切點依檢驗方法與單位而異（PRA 法常用 &gt; 20–30 ng/dL per ng/mL/h），以院內參考值為準","<b>2025 Endocrine Society 指引</b>：建議所有高血壓病人篩檢；<b>不必先停降壓藥</b>即可初篩，結果模稜兩可時再調整干擾藥物（MRA、利尿劑、ACEI/ARB 會升高腎素 → 偽陰性；β-blocker 會壓低腎素 → 偽陽性）","低血鉀會抑制醛固酮分泌 → 偽陰性；採血前盡量把血鉀補到正常"],
+  cutoffs:["篩檢同時抽 <b>aldosterone + renin</b>（算 ARR）；<b>腎素被壓抑 + 醛固酮不低</b>是核心。ARR 切點依檢驗方法與單位而異（PRA 法常用 &gt; 20–30 ng/dL per ng/mL/h），以院內參考值為準","<b>2025 Endocrine Society 指引</b>：建議（條件式）所有高血壓病人篩檢；<b>不必先停降壓藥</b>即可初篩，結果模稜兩可時再調整干擾藥物（MRA、利尿劑、ACEI/ARB 會升高腎素 → 偽陰性；β-blocker 會壓低腎素 → 偽陽性）","低血鉀會抑制醛固酮分泌 → 偽陰性；採血前盡量把血鉀補到正常"],
   opts:[
     {l:"高 High",s:"→ 看腎素活性 renin",go:"aldo_renin"},
     {l:"低 Low",s:"→ 看皮質醇 cortisol",go:"aldo_cortisol"}
@@ -705,6 +785,7 @@ end_secondary:{
   en:"Renin ↑ · Aldosterone ↑ · Hypertension",
   lead:"腎臟灌流下降或腎素自主分泌 → RAAS 全面活化。",
   causes:[
+    {n:"利尿劑（處方或偷用）",d:"體液不足驅動腎素與醛固酮；先確認用藥並做尿液利尿劑篩檢，再找其他病因",key:1},
     {n:"腎血管性高血壓 Renovascular HTN / RAS",d:"腎動脈狹窄；動脈硬化型（年長、抽菸）或纖維肌肉發育不良（年輕女性）。可聞腹部血管雜音",key:1},
     {n:"惡性高血壓 Malignant hypertension",d:"血壓極高併視網膜病變、腎功能惡化、微血管病性溶血",key:1},
     {n:"腎素分泌腫瘤 Reninoma",d:"juxtaglomerular cell tumor，罕見；年輕、極高腎素"},
@@ -730,7 +811,7 @@ end_primary:{
     {n:"腎上腺癌 Adrenocortical carcinoma",d:"罕見，腫瘤大、可合併其他類固醇過量"}
   ],
   sections:[{h:"確認 Confirm",li:[
-    "<b>ARR 篩檢</b> → 確認試驗（生理食鹽水負荷、captopril challenge、口服鈉負荷）。",
+    "<b>ARR 篩檢</b>。自發性低血鉀 + 腎素受抑制 + 醛固酮 ≥ 20 ng/dL 屬高機率，2016 指引列為可免確認試驗；2025 指引也只在中度機率且考慮手術時才做抑制試驗（生理食鹽水負荷、captopril challenge、口服鈉負荷）。",
     "<b>腎上腺 CT</b>；&gt; 35 歲或影像不明確者需 <b>腎上腺靜脈取樣 (AVS)</b> 分辨單側或雙側。",
     "<b>治療</b>：單側 → 腹腔鏡腎上腺切除；雙側 → spironolactone 或 eplerenone（同時矯正低血鉀）。"
   ]}]
@@ -773,7 +854,9 @@ end_cortisol_normal:{
     {n:"表象性礦物皮質酮過多 AME",d:"11β-HSD2 基因缺損；兒童期高血壓、低血鉀、生長遲滯",key:1},
     {n:"Liddle 氏症候群",d:"ENaC β/γ 次單元突變 → 通道持續開啟。家族性早發高血壓；<b>對 spironolactone 無效、對 amiloride/triamterene 有效</b>",key:1},
     {n:"DOC 分泌腫瘤",d:"deoxycorticosterone 具礦物皮質酮活性"},
-    {n:"外因性礦物皮質酮",d:"fludrocortisone、含醛固酮類似物之製劑"}
+    {n:"外因性礦物皮質酮",d:"fludrocortisone、含醛固酮類似物之製劑"},
+    {n:"藥物 Itraconazole、Posaconazole",d:"抑制 11β-HSD2，機轉與甘草相同"},
+    {n:"藥物 Abiraterone",d:"抑制 CYP17A1 → cortisol 下降、ACTH 上升 → DOC 累積；併用糖皮質素可減輕"}
   ],
   sections:[{h:"確認 Confirm",li:[
     "<b>用藥/食物史</b> — 甘草類最常被漏問，停用即可改善，是最容易治好的一群。",
@@ -849,6 +932,7 @@ end_ucl_low_na_high:{
   sections:[{h:"處置",li:[
     "止吐、處理阻塞、必要時 <b>PPI/H₂ blocker</b> 減少胃酸流失。",
     "<b>生理食鹽水 + KCl</b> 補充；胃液每公升約含 K⁺ 5–10 mmol、H⁺ 與 Cl⁻ 大量。",
+    "<b>尿 pH &gt; 7</b> 可在床邊確認碳酸氫鈉尿；暴食症的尿鈉可達尿氯的 5 倍。",
     "注意「低血鉀 → 尿液矛盾性酸化 (paradoxical aciduria)」的現象。"
   ]}]
 },
@@ -880,8 +964,8 @@ uca:{
   why:"這一步把<b>作用在亨利氏環</b>（loop 利尿劑、Bartter）與<b>作用在遠曲小管</b>（thiazide、Gitelman）分開。亨利氏環的鈣再吸收與 NKCC2 連動 → 阻斷時<b>尿鈣上升</b>；遠曲小管阻斷 NCC 反而<b>增加</b>鈣再吸收 → <b>尿鈣下降</b>。",
   cutoffs:["<b>高尿鈣</b>：&gt; 0.20 mg/mg（≈ &gt; 0.57 mmol/mmol）→ loop 利尿劑 / Bartter syndrome","<b>低尿鈣</b>：&lt; 0.20 mmol/mmol（≈ &lt; 0.07 mg/mg；KDIGO 2017 Gitelman 標準）→ thiazide / Gitelman syndrome","<b>⚠ 單位陷阱</b>：mg/mg × 2.82 = mmol/mmol。Harrison's 演算法的「0.20 / 0.15」未清楚區分單位，照字面套用易把 Gitelman 誤判為 Bartter；請先確認報告單位。","介於兩者之間（0.07–0.20 mg/mg）不具鑑別力 → 看<b>血鎂</b>（顯著低鎂偏 Gitelman）、發病年齡（Bartter 多於新生兒/幼兒期）與尿液利尿劑篩檢","Gitelman 另一特徵是<b>顯著低血鎂</b> (hypomagnesemia, &lt; 0.7 mmol/L)"],
   opts:[
-    {l:"尿鈣高 ＞0.20 mg/mg",s:"Loop 利尿劑 / Bartter 症候群",go:"end_loop"},
-    {l:"尿鈣低 ＜0.2 mmol/mmol",s:"Thiazide / Gitelman 症候群（≈ &lt; 0.07 mg/mg）",go:"end_thiazide"}
+    {l:"尿鈣高 ＞0.20 mg/mg",e:"尿鈣高",s:"Loop 利尿劑 / Bartter 症候群",go:"end_loop"},
+    {l:"尿鈣低 ＜0.2 mmol/mmol",e:"尿鈣低",s:"Thiazide / Gitelman 症候群（≈ &lt; 0.07 mg/mg）",go:"end_thiazide"}
   ]
 },
 end_loop:{
@@ -953,12 +1037,17 @@ const HK=(()=>{
     r.agc = r.ag!==null&&x.alb>0 ? r.ag+2.5*(4-x.alb) : null;
     r.cacr = has(x.uca)&&x.ucr>0 ? x.uca/x.ucr : null;            // mmol/mmol
     r.cacrMg = r.cacr===null ? null : r.cacr*CACR_MOLAR_TO_MG;     // mg/mg
-    // Sterns: K⁺ 4→3 ≈ 350 mmol；4→2 ≈ 750 mmol（分段線性，兩點連續）
-    r.deficit = !(x.pk>0) ? null : x.pk>=4 ? 0 : x.pk>=3 ? (4-x.pk)*350 : 350+(3-x.pk)*400;
+    // UpToDate: chronic hypokalemia, 200–400 mmol per 1 mmol/L below 4
+    r.deficitLow = !(x.pk>0) ? null : Math.max(0,4-x.pk)*200;
+    r.deficitHigh = !(x.pk>0) ? null : Math.max(0,4-x.pk)*400;
+    r.warn=[];
+    if(x.pk>7) r.warn.push("血鉀 "+x.pk+" mmol/L 不合理，請確認輸入");
+    if(has(x.ucr)&&x.ucr>40) r.warn.push("尿液 Cr 相當於 "+Math.round(x.ucr*CR_MGDL_PER_MMOL)+" mg/dL，高得不尋常，請確認單位選擇是否正確");
+    if(has(x.pcr)&&x.pcr>2) r.warn.push("血漿 Cr 相當於 "+Math.round(x.pcr*CR_MGDL_PER_MMOL)+" mg/dL，請確認單位選擇是否正確");
 
     /* classify each excretion index: low / high / gray */
     const ix=[];
-    if(has(x.u24)) ix.push({by:"24h 尿鉀",c:x.u24<15?"low":"high"});
+    if(has(x.u24)) ix.push({by:"24h 尿鉀",c:x.u24<15?"low":x.u24>30?"high":"gray"});
     if(r.kcr!==null) ix.push({by:"Urine K/Cr",c:r.kcr<1.5?"low":r.kcr>2?"high":"gray"});
     if(r.ttkgValid) ix.push({by:"TTKG",c:r.ttkg<3?"low":r.ttkg>4?"high":"gray"});
     if(r.fek!==null) ix.push({by:"FEK",c:r.fek<2?"low":r.fek>10?"high":"gray"});
@@ -1048,7 +1137,7 @@ function renderPath(){
     b.className="crumb";
     const pid=i?hist[i-1]:null, prev=pid?TREE[pid]:null;
     let chosen="";
-    if(prev&&prev.opts){const o=prev.opts.find(o=>o.go===id); if(o) chosen=shortLabel(o.l);}
+    if(prev&&prev.opts){const o=prev.opts.find(o=>o.go===id); if(o) chosen=shortLabel(o.e||o.l);}
     b.innerHTML = i===0 ? "低血鉀 K⁺&lt;3.5"
       : (chosen ? (SHORT[pid]||"")+' <span class="v">'+escHTML(chosen)+'</span>' : escHTML(plain(n.title).slice(0,12)));
     b.title = prev? plain(prev.title) : "回到起點";
@@ -1070,7 +1159,8 @@ function goTab(t,noScroll){
   if(!TABS.some(b=>b.dataset.tab===t)) t="dx";
   TABS.forEach(b=>{const on=b.dataset.tab===t; b.setAttribute("aria-selected",on); b.tabIndex=on?0:-1});
   document.querySelectorAll('section[role="tabpanel"]').forEach(s=>s.classList.toggle("on",s.id==="tab-"+t));
-  if(location.hash!=="#"+t) history.replaceState(null,"","#"+t);
+  if(location.hash!=="#"+t&&(location.hash||t!=="dx")) history.replaceState(null,"","#"+t);
+  const act=TABS.find(b=>b.dataset.tab===t); if(act&&act.scrollIntoView) act.scrollIntoView({block:"nearest",inline:"nearest"});
   if(!noScroll) window.scrollTo({top:0,behavior:"smooth"});
 }
 TABS.forEach((b,i)=>{
@@ -1100,7 +1190,7 @@ function chartNode(id,edgeLabel){
   }
   // end-nodes are leaves in the static chart (their "next" is a return link, not a branch)
   const kids = n.type==="q" ? n.opts : [];
-  const sub = kids.length ? '<ul>'+kids.map(o=>chartNode(o.go,o.l)).join('')+'</ul>' : "";
+  const sub = kids.length ? '<ul>'+kids.map(o=>chartNode(o.go,o.e||o.l)).join('')+'</ul>' : "";
   const e = edgeLabel ? escHTML(shortLabel(edgeLabel)) : "";
   return '<li>'+(e?'<span class="edge">'+e+'</span>':'')+box+sub+'</li>';
 }
@@ -1174,11 +1264,11 @@ function calc(){
        (r.uogClass==="low"?"&lt; 100 mOsm/kg → NH₄⁺ 排泄<b>過少</b>，考慮 <b>RTA</b>":
         r.uogClass==="high"?"&gt; 150 mOsm/kg → NH₄⁺ 排泄正常/增加，酸中毒屬<b>腎外</b>原因":"100–150 → 交界值")+(acid?"":"。<b>僅在代謝性酸中毒時</b>具判讀意義")},
     {n:"Urine anion gap",v:fmt(r.uag,0),i: r.uag===null?"需要尿鈉、尿鉀、尿氯":
-       (r.uag>0?"正值 → NH₄⁺ 排泄偏少（支持 RTA）":"負值 → NH₄⁺ 排泄足夠（腎外）")+"。尿中有 ketone、hippurate 等陰離子時不可靠，優先看 osmolar gap"+(acid?"":"；僅於酸中毒時判讀")},
+       (r.uag>0?"正值 → NH₄⁺ 排泄偏少（支持 RTA）":r.uag<0?"負值 → NH₄⁺ 排泄足夠（腎外）":"0 → 無法判定")+"。尿中有 ketone、hippurate 等陰離子時不可靠，優先看 osmolar gap"+(acid?"":"；僅於酸中毒時判讀")},
     {n:"Urine Ca/Cr",v:r.cacr===null?null:fmt(r.cacrMg,3),u:r.cacr===null?"":"mg/mg · "+fmt(r.cacr,2)+" mmol/mmol",i: r.cacr===null?"選填：輸入尿鈣即可計算（Step 10）":
        r.cacrClass==="high"?"&gt; 0.20 mg/mg → 高尿鈣：<b>loop 利尿劑 / Bartter</b>":
        r.cacrClass==="low"?"&lt; 0.2 mmol/mmol → 低尿鈣：<b>thiazide / Gitelman</b>":"介於兩者之間 → 看血鎂、發病年齡與利尿劑篩檢"},
-    {n:"估計缺鉀量",v:r.deficit===null?null:"≈"+fmt(r.deficit,0),u:"mmol",i:"<b>粗估值，僅供概念參考</b>：K⁺ 4→3 約缺 <b>350 mmol</b>，4→2 約缺 <b>750 mmol</b>。細胞內移型<b>不適用</b>（總量並未缺乏）；肌肉量少者所需較低"}
+    {n:"估計缺鉀量",v:r.deficitLow===null?null:fmt(r.deficitLow,0)+"–"+fmt(r.deficitHigh,0),u:"mmol",i:"<b>粗估值，僅供概念參考</b>：慢性低血鉀時，血鉀每低 1 mmol/L 約缺 <b>200–400 mmol</b>。細胞內移型、DKA 與高滲高血糖<b>不適用</b>；肌肉量少者所需較低"}
   ];
   document.getElementById("outs").innerHTML=cards.map(c=>
     '<div class="oc'+(c.hi?" hi":"")+'"><div class="on">'+c.n+'</div><div class="ov'+(c.v===null?" na":"")+'">'+(c.v===null?"—":c.v+(c.u?' <small>'+c.u+'</small>':''))+'</div><div class="oi">'+c.i+'</div></div>').join('');
@@ -1193,7 +1283,7 @@ function calc(){
     txt="依 "+ex.by+"：尿鉀排泄<b>偏低</b> → <b>腎外流失或遠期腎臟流失</b>。合併"+abTxt+"："
       + (r.ab==="acid"?"考慮<b>腸胃道流失</b>（腹瀉、短腸、瀉劑）。":
          r.ab==="alk"?"考慮<b>遠期嘔吐或遠期利尿劑</b>、神經性厭食、慢性酒癮。":
-         r.ab==="normal"?"考慮<b>大量流汗、攝取不足</b>，或細胞內移（TPP/HPP/β2 agonist）。":"");
+         r.ab==="normal"?"考慮<b>大量流汗、攝取不足</b>。<b>若是急性無力或麻痺，先想細胞內移 (TPP/HPP/β2 agonist)，補鉀要保守。</b>":"");
   }else{
     txt="依 "+ex.by+"：尿鉀排泄<b>偏高</b> → <b>腎臟持續流失 (renal K⁺ wasting)</b>。合併"+abTxt+"："
       + (r.ab==="acid"?(r.uogClass==="low"?"尿液 osmolar gap 低 → NH₄⁺ 排泄過少 → <b>腎小管酸中毒 (RTA)</b>。":
@@ -1207,15 +1297,18 @@ function calc(){
   }
   if(r.conflict) txt+='<br><span style="color:var(--warn)">⚠ 各項尿鉀指標結論互相矛盾，以 24h 尿鉀 &gt; K/Cr &gt; TTKG &gt; FEK 的順序採用，請再確認檢體與單位。</span>';
   if(x.pk!==null&&x.pk>=3.5) txt+='<br><span style="color:var(--warn)">⚠ 血鉀 ≥ 3.5 mmol/L，並非低血鉀；上述判讀不適用。</span>';
+  r.warn.forEach(w=>{txt+='<br><span style="color:var(--danger)">⚠ '+w+'。</span>'});
   const label=plain(TREE[r.route].title).slice(0,24);
   document.getElementById("verdict").innerHTML='<div class="vt">流程判讀 Interpretation</div><div class="vb">'+txt+'</div>'
-    +'<div style="margin-top:10px"><button class="btn primary" id="calc-open">在逐步鑑別中開啟：'+escHTML(label)+' →</button></div>';
+    +'<div style="margin-top:10px"><button class="btn primary" id="calc-open">在逐步鑑別中開啟：'+escHTML(label)+' →</button>'+(r.route==="end_low_normal"?' <button class="btn" id="calc-shift">急性無力 → 細胞內移</button>':'')+'</div>';
   document.getElementById("calc-open").onclick=()=>openStep(r.route);
+  const cs=document.getElementById("calc-shift"); if(cs) cs.onclick=()=>openStep("shift");
 }
-document.getElementById("inputs").addEventListener("input",calc);
+function setCalcBanner(t){const b=document.getElementById("calc-banner");b.hidden=!t;b.innerHTML=t?"<b>目前載入：</b>"+t:""}
+document.getElementById("inputs").addEventListener("input",()=>{setCalcBanner("");calc()});
 document.getElementById("inputs").addEventListener("change",calc);
-document.getElementById("calc-clear").onclick=()=>{F.forEach(f=>{const e=f.id&&document.getElementById("f_"+f.id);if(e)e.value=""});calc()};
-document.getElementById("calc-demo").onclick=()=>{F.forEach(f=>{const e=f.id&&document.getElementById("f_"+f.id);if(e)e.value=f.v});calc()};
+document.getElementById("calc-clear").onclick=()=>{F.forEach(f=>{const e=f.id&&document.getElementById("f_"+f.id);if(e)e.value=""});setCalcBanner("");calc()};
+document.getElementById("calc-demo").onclick=()=>{F.forEach(f=>{const e=f.id&&document.getElementById("f_"+f.id);if(e)e.value=f.v});["pcr","ucr","uca"].forEach(id=>{document.getElementById("u_"+id).value="mgdl"});setCalcBanner("");calc()};
 calc();
 
 /* ==================================================================
@@ -1245,7 +1338,7 @@ document.getElementById("tab-tx").innerHTML=`
       <tr><td class="k sev-sev">重度 Severe</td><td>&lt; 2.5 mmol/L<br>或 &lt; 3.0 併 ECG 變化<br>或有症狀</td>
         <td>口服<b>很少足夠</b>，應以靜脈補充</td>
         <td>起始 40 mmol/L 靜脈給予，視情況重複；<b>24 小時上限 2–3 mmol/kg</b></td>
-        <td><b>連續心電圖監視</b>；每數小時追蹤 U&amp;E（可用血氣快速取得）</td></tr>
+        <td><b>連續心電圖監視</b>；血鉀每 2–4 小時追蹤（可用血氣快速取得）</td></tr>
     </tbody>
   </table></div>
 </div>
@@ -1288,8 +1381,9 @@ document.getElementById("tab-tx").innerHTML=`
     <h3>特殊情境 <span class="en">Special situations</span></h3>
     <ul>
       <li><b>細胞內移型（TPP/HPP）</b>：保守補鉀，否則反彈性高血鉀。TPP 可用非選擇性 β-blocker (propranolol) 快速回復。</li>
-      <li><b>合併低血鈉</b>：低血鉀是慢性低血鈉矯正時發生<b>滲透性脫髓鞘症候群</b>的危險因子。<b>補進的 K⁺ 與 Na⁺ 等效會拉高血鈉</b>（Edelman），計算補鈉速率時須把補鉀量算進去，避免 24 小時內過度矯正。</li>
+      <li><b>合併低血鈉</b>：低血鉀是慢性低血鈉矯正時發生<b>滲透性脫髓鞘症候群</b>的危險因子。<b>補進的 K⁺ 與 Na⁺ 等效會拉高血鈉</b>（Edelman），計算補鈉速率時須把補鉀量算進去。高風險族群每日目標 4–6、上限 8 mmol/L。</li>
       <li><b>合併代謝性酸中毒</b>：<b>先矯正低血鉀再給鹼</b>，否則鹼化使 K⁺ 更快進入細胞。</li>
+      <li><b>DKA / 高滲高血糖</b>：血鉀已低時先補鉀、暫緩胰島素（UpToDate：K⁺ &gt; 3.3；2024 共識：K⁺ ≥ 3.5 才開始）。</li>
       <li><b>合併體液不足</b>：交感活性上升抑制胰島素分泌，使血鉀被高估；體液補足後血鉀可能明顯下降，需更大補充量。</li>
       <li><b>腎功能不全、併用保鉀利尿劑或 ACEI/ARB</b>：補鉀須格外保守，密切監測。</li>
       <li><b>低肌肉量</b>：細胞內鉀庫小，所需補充量較少。</li>
@@ -1327,10 +1421,10 @@ document.getElementById("tab-labs").innerHTML=`
 <table>
   <thead><tr><th>檢查 Test</th><th>單位</th><th>低血鉀時<br>預期值</th><th>高血鉀時<br>預期值</th><th>陷阱 Pitfalls</th></tr></thead>
   <tbody>
-    <tr><td class="k">24 小時尿鉀排泄</td><td>mmol/day</td><td>&lt; 15</td><td>&gt; 20</td><td>收集不便、耗時、常收不全；受飲食與藥物影響；無法反映即時狀況，尤其急性細胞間轉移時</td></tr>
+    <tr><td class="k">24 小時尿鉀排泄</td><td>mmol/day</td><td>&lt; 15（UpToDate：&lt; 25–30）</td><td>&gt; 20</td><td>收集不便、耗時、常收不全；受飲食與藥物影響；無法反映即時狀況，尤其急性細胞間轉移時</td></tr>
     <tr><td class="k">Spot urine K⁺ 濃度</td><td>mmol/L</td><td>無明確切點</td><td>無明確切點</td><td>受尿量稀釋影響大 — 多尿或少尿時嚴重誤導。85% 慢性腎性失鉀病人尿鉀仍 &lt; 20 mmol/L，<b>不建議單獨使用</b></td></tr>
     <tr><td class="k">FE<sub>K</sub>（鉀排泄率）</td><td>%</td><td>&lt; 2</td><td>&gt; 10</td><td>腎功能不全時腎小管代償性增加分泌，須用 nomogram 校正</td></tr>
-    <tr><td class="k">Urine K⁺ / creatinine</td><td>mmol/mmol</td><td>&lt; 1.5 – 2.0</td><td>&gt; 5</td><td>腎衰竭、肌肉量少、體液不足、嚴重橫紋肌溶解會影響肌酸酐排泄而改變比值</td></tr>
+    <tr><td class="k">Urine K⁺ / creatinine</td><td>mmol/mmol</td><td>&lt; 1.5（1.5–2.0 交界）</td><td>&gt; 5</td><td>腎衰竭、肌肉量少、體液不足、嚴重橫紋肌溶解會影響肌酸酐排泄而改變比值</td></tr>
     <tr><td class="k">TTKG</td><td>—</td><td>&lt; 3</td><td>&gt; 10</td><td>尿液滲透壓低於血漿滲透壓時<b>不適用</b>；尿鈉需 &gt; 25 mmol/L。髓質尿素再循環使其高估，<b>原作者 (Kamel &amp; Halperin 2011) 已建議改用 K/Cr</b></td></tr>
   </tbody>
 </table>
@@ -1345,7 +1439,7 @@ document.getElementById("tab-labs").innerHTML=`
       <li><b>FE<sub>K</sub></b> = (U<sub>K</sub>×P<sub>Cr</sub>) ÷ (P<sub>K</sub>×U<sub>Cr</sub>) × 100%</li>
       <li><b>Urine osmolar gap</b> = 實測 U<sub>osm</sub> − [2(U<sub>Na</sub>+U<sub>K</sub>) + urea + glucose] ≈ 2 × U<sub>NH4</sub></li>
       <li><b>Urine anion gap</b> = U<sub>Na</sub> + U<sub>K</sub> − U<sub>Cl</sub>（正值 → NH₄⁺ 排泄少 → RTA）</li>
-      <li><b>缺鉀量估計</b>（Sterns）：K⁺ 由 4 → 3 mmol/L 約需流失 <b>350 mmol</b>；降到 2 mmol/L 約需 <b>750 mmol</b>。此為粗估，且<b>不適用於細胞內移型</b>低血鉀。</li>
+      <li><b>缺鉀量估計</b>：慢性低血鉀時血鉀每低 1 mmol/L 約缺 <b>200–400 mmol</b>。此為粗估，<b>不適用於細胞內移型</b>低血鉀、DKA 與高滲高血糖。</li>
     </ul>
   </div>
   <div class="panel card">
@@ -1374,100 +1468,444 @@ document.getElementById("tab-labs").innerHTML=`
    8. CASE QUIZ
    ================================================================== */
 /*CASES-START*/
+/* lv: 1 基礎 / 2 進階 / 3 高階 · node: the TREE end-point this question teaches (tests check it exists)
+   check: numbers re-derived by the calculator core in tests.cjs, so a question cannot drift from the tool */
 const CASES=[
- {story:"28 歲亞洲男性，前一晚聚餐吃了大量炒飯與含糖飲料，清晨醒來雙下肢無力無法起身，感覺正常。無腹瀉嘔吐、未用藥。理學檢查：BP 128/74，心跳 104，甲狀腺輕度腫大。",
+ {lv:1,node:"end_shift",story:"28 歲亞洲男性，前一晚聚餐吃了大量炒飯與含糖飲料，清晨醒來雙下肢無力無法起身，感覺正常。無腹瀉嘔吐、未用藥。理學檢查：BP 128/74，心跳 104，甲狀腺輕度腫大。",
   labs:["K⁺ 1.9 mmol/L","PO₄ 1.4 mg/dL","HCO₃⁻ 24 mmol/L","Urine K/Cr 0.8 mmol/mmol","TTKG 2","TSH &lt; 0.01"],
   opts:["甲狀腺毒性週期性麻痺 (TPP)","Gitelman 症候群","遠端腎小管酸中毒","偷用利尿劑"],
   a:0,
   path:"急症？(是，麻痺) → 假性？否 → 攝取不足？否 → <b>細胞內移？是</b>",
-  ex:"<b>尿鉀低 (TTKG 2、K/Cr 0.8) + 酸鹼正常 + 低血磷 + 抑制的 TSH</b> = 典型細胞內移型低血鉀。高醣餐後胰島素上升為經典誘因，好發亞洲年輕男性。治療：<b>保守補鉀</b>（總量並未缺乏，過度補充會造成反彈性高血鉀）＋ propranolol 1–3 mg/kg 可快速回復，並根本治療甲狀腺亢進。"},
+  ex:"<b>尿鉀低 (TTKG 2、K/Cr 0.8) + 酸鹼正常 + 低血磷 + 抑制的 TSH</b> = 典型細胞內移型低血鉀。高醣餐後胰島素上升為經典誘因，好發亞洲年輕男性。治療：<b>保守補鉀</b>（總量並未缺乏，週期性麻痺治療後有 40–60% 發作出現反彈性高血鉀）＋ 非選擇性 β-blocker（Lin 2001 報告口服 propranolol 3 mg/kg），並根本治療甲狀腺亢進。"},
 
- {story:"46 歲女性因頑固性高血壓轉診，服用三種降壓藥仍 168/102。無水腫。抽血發現低血鉀，未服利尿劑。",
-  labs:["K⁺ 2.9 mmol/L","HCO₃⁻ 32 mmol/L","Urine K 42 mmol/L","TTKG 8","Aldosterone 高","Plasma renin activity 受抑制"],
+ {lv:1,node:"end_primary",story:"46 歲女性因頑固性高血壓轉診，服用三種降壓藥仍 168/102。無水腫。抽血發現低血鉀，未服利尿劑。",
+  labs:["K⁺ 2.9 mmol/L","HCO₃⁻ 32 mmol/L","Urine K/Cr 5.1 mmol/mmol","TTKG 8","Aldosterone 高","Plasma renin activity 受抑制"],
   opts:["腎動脈狹窄","原發性高醛固酮症 (Conn's)","Liddle 氏症候群","庫欣氏症候群"],
   a:1,
   path:"尿鉀<b>高</b> → 代謝性<b>鹼中毒</b> → 血壓<b>高</b> → 醛固酮<b>高</b> → 腎素<b>低</b>",
-  ex:"<b>Aldo ↑ / Renin ↓</b> 是原發性高醛固酮症的定義性組合（腎上腺自主分泌，回饋抑制腎素）。腎動脈狹窄則是 Renin ↑ / Aldo ↑；Liddle 與庫欣是 Aldo ↓。下一步：確認試驗 → 腎上腺 CT →（&gt;35 歲或影像不明確）腎上腺靜脈取樣分辨單側/雙側。單側可手術治癒。"},
+  ex:"<b>Aldo ↑ / Renin ↓</b> 是原發性高醛固酮症的定義性組合（腎上腺自主分泌，回饋抑制腎素）。腎動脈狹窄則是 Renin ↑ / Aldo ↑；Liddle 與庫欣是 Aldo ↓。下一步：自發性低血鉀 + 腎素受抑制屬高機率，不一定需要抑制試驗；再安排腎上腺 CT，考慮手術者做腎上腺靜脈取樣分辨單側/雙側。單側可手術治癒。"},
 
- {story:"34 歲女性，主訴長期疲倦與手足抽搐。血壓 102/64，無水腫、無嘔吐腹瀉病史，尿液利尿劑篩檢陰性。",
-  labs:["K⁺ 2.6 mmol/L","Mg²⁺ 1.2 mg/dL","HCO₃⁻ 31 mmol/L","Urine Cl⁻ 48 mmol/L","Urine Na⁺ 高","Urine Ca/Cr 0.06 mg/mg（≈0.17 mmol/mmol）"],
-  opts:["Bartter 症候群","偷用 loop 利尿劑","Gitelman 症候群","近期嘔吐"],
-  a:2,
-  path:"尿鉀高 → 鹼中毒 → 血壓<b>正常</b> → 尿 Cl⁻ <b>高</b> → 尿 Na⁺ 高 → 尿 Ca/Cr <b>&lt; 0.2 mmol/mmol</b>",
-  ex:"<b>低尿鈣 (Ca/Cr 0.06) + 明顯低血鎂 + 血壓正常 + 成人發病</b> = Gitelman 症候群（SLC12A3 / NCC 缺損），效果等同慢性 thiazide。Bartter 與 loop 利尿劑則是<b>高</b>尿鈣 (&gt; 0.20 mg/mg)。利尿劑篩檢陰性可排除偷用；近期嘔吐會是尿 Cl⁻ <b>低</b>。治療：長期 KCl <b>加上鎂鹽</b> — 不補鎂就補不起鉀。"},
-
- {story:"52 歲男性因慢性腹瀉住院，每日水便 8–10 次已持續三週，體重下降 6 公斤。血壓 96/58，黏膜乾燥。",
+ {lv:1,node:"end_low_acidosis",check:{x:{pk:2.7,sna:138,scl:114,shco3:16,u24:9},route:"end_low_acidosis",ag:8},story:"52 歲男性因慢性腹瀉住院，每日水便 8–10 次已持續三週，體重下降 6 公斤。血壓 96/58，黏膜乾燥。",
   labs:["K⁺ 2.7 mmol/L","Na⁺ 138","Cl⁻ 114 mmol/L","HCO₃⁻ 16 mmol/L","Anion gap 8","24h urine K 9 mmol/day"],
   opts:["遠端腎小管酸中毒","腸胃道鉀流失","糖尿病酮酸中毒","原發性高醛固酮症"],
   a:1,
   path:"尿鉀<b>低</b> (9 mmol/day) → 酸鹼：<b>正常 anion gap 之代謝性酸中毒</b>",
   ex:"<b>尿鉀 &lt; 15 mmol/day</b> 代表腎臟正常地保留鉀，流失來自腎外；合併<b>高血氯、正常 anion gap 之代謝性酸中毒</b>即指向下消化道（同時流失 K⁺ 與 HCO₃⁻）。若是 RTA，腎臟會<b>持續丟鉀</b>（尿鉀高）而不是保留。此處補鉀應選 <b>KHCO₃ 或 K citrate</b>（合併酸中毒），並補液補鎂。"},
 
- {story:"63 歲男性，小細胞肺癌，兩週內出現進行性肌無力、周邊水腫與新發高血壓 172/98、皮膚色素沉著。無庫欣外觀。",
-  labs:["K⁺ 2.2 mmol/L","HCO₃⁻ 36 mmol/L","Urine K 55 mmol/L","Renin 受抑制","Aldosterone 低","Cortisol 明顯升高"],
+ {lv:1,node:"end_pseudo",story:"62 歲女性，急性骨髓性白血病，門診例行抽血。完全沒有症狀，心電圖正常。檢體因檢驗室塞車，抽血後約 3 小時才上機。",
+  labs:["K⁺ 2.4 mmol/L","WBC 186,000/µL","HCO₃⁻ 25 mmol/L","Mg²⁺ 2.0 mg/dL"],
+  opts:["立刻靜脈補鉀 40 mmol","白血病細胞溶解造成的腎性失鉀，安排 24 小時尿鉀","重抽並立即分離血漿（或全血鉀）確認","先給 propranolol 再追蹤"],
+  a:2,
+  path:"急症？否 → <b>假性低血鉀？是</b>（WBC &gt; 10⁵/µL + 檢體久置）",
+  ex:"極度白血球增多時，白血球在室溫下持續攝取試管內的 K⁺，數值與臨床不符就要先懷疑<b>假性低血鉀</b>。真實血鉀可能正常，此時靜脈補鉀反而有造成高血鉀的風險。流程在這一步就結束，不需進一步病因檢查。"},
+
+ {lv:1,node:"end_nonreab",story:"55 歲男性接受 cisplatin 化療。住院三天，每天口服加靜脈 KCl 合計約 120 mmol，血鉀幾乎不動。無腹瀉、無嘔吐，尿量正常。",
+  labs:["K⁺ 2.9 mmol/L（三天不變）","Mg²⁺ 1.0 mg/dL","HCO₃⁻ 25 mmol/L","Urine K/Cr 4.6 mmol/mmol"],
+  opts:["把 KCl 再加倍","改用 KHCO₃","安排腎上腺 CT","先補鎂，再繼續補鉀"],
+  a:3,
+  path:"尿鉀<b>高</b> → 酸鹼<b>接近正常</b> → 找低血鎂",
+  ex:"低血鉀病人<b>最多四成</b>同時有低血鎂。鎂缺乏會讓尿鉀持續流失，KCl 補再多也補不回來。cisplatin、gentamicin、ifosfamide 這類腎小管毒性藥物會同時丟鉀與鎂。所有「補不起來」的低血鉀都要先驗鎂。"},
+
+ {lv:1,node:"end_cortisol_normal",story:"71 歲女性，因高血壓與便祕長期自行服用中藥與甘草糖，近期血壓上升至 164/96 並出現下肢無力。未使用利尿劑或類固醇。",
+  labs:["K⁺ 2.6 mmol/L","HCO₃⁻ 33 mmol/L","Urine K/Cr 6.0 mmol/mmol","Renin 受抑制","Aldosterone 低","Cortisol 正常"],
+  opts:["原發性高醛固酮症","庫欣氏病","17α-hydroxylase 缺乏","甘草 (licorice) 誘發之表象性礦物皮質酮過多"],
+  a:3,
+  path:"尿鉀高 → 鹼中毒 → 血壓高 → 醛固酮<b>低</b> → 皮質醇<b>正常</b>",
+  ex:"<b>Aldo ↓ / Renin ↓ / Cortisol 正常</b> 這一群包括甘草、carbenoxolone、AME、Liddle 氏症候群與 DOC 分泌腫瘤。甘草中的 <b>glycyrrhizic acid 抑制 11β-HSD2</b>，使正常量的皮質醇得以作用於礦物皮質酮受體。<b>這是最容易治好的一群 — 停用即可恢復</b>，所以中藥、甘草糖、青草茶、口嚼菸草的病史務必主動詢問。"},
+
+ {lv:2,node:"end_thiazide",story:"34 歲女性，主訴長期疲倦與手足抽搐。血壓 102/64，無水腫、無嘔吐腹瀉病史，尿液利尿劑篩檢陰性。",
+  labs:["K⁺ 2.6 mmol/L","Mg²⁺ 1.2 mg/dL","HCO₃⁻ 31 mmol/L","Urine Cl⁻ 48 mmol/L","Urine Na⁺ 高","Urine Ca/Cr 0.06 mg/mg（≈0.17 mmol/mmol）"],
+  opts:["Bartter 症候群","偷用 loop 利尿劑","Gitelman 症候群","近期嘔吐"],
+  a:2,
+  path:"尿鉀高 → 鹼中毒 → 血壓<b>正常</b> → 尿 Cl⁻ <b>高</b> → 尿 Na⁺ 高 → 尿 Ca/Cr <b>&lt; 0.2 mmol/mmol</b>",
+  ex:"<b>低尿鈣 (Ca/Cr 0.06 mg/mg) + 明顯低血鎂 + 血壓正常 + 成人發病</b> = Gitelman 症候群（SLC12A3 / NCC 缺損），效果等同慢性 thiazide。Bartter 與 loop 利尿劑則是<b>高</b>尿鈣 (&gt; 0.20 mg/mg)。利尿劑篩檢陰性可排除偷用；近期嘔吐會是尿 Cl⁻ <b>低</b>。治療：長期 KCl <b>加上鎂鹽</b> — 不補鎂就補不起鉀。"},
+
+ {lv:2,node:"end_low_alkalosis",story:"38 歲女性，因反覆疲倦就醫，堅稱無嘔吐、無服藥。BMI 17.5。牙齒琺瑯質侵蝕、右手指關節有結痂。血壓 100/62。",
+  labs:["K⁺ 2.8 mmol/L","HCO₃⁻ 34 mmol/L","Urine Cl⁻ 6 mmol/L","Urine Na⁺ 8 mmol/L","Urine K/Cr 1.1 mmol/mmol","尿液利尿劑篩檢 陰性"],
+  opts:["Gitelman 症候群","原發性高醛固酮症","近期使用 thiazide","遠期嘔吐 (self-induced vomiting)"],
+  a:3,
+  path:"尿鉀<b>低</b> → 代謝性<b>鹼中毒</b> → 尿 Cl⁻ 低、尿 Na⁺ 低",
+  ex:"<b>尿 Cl⁻ 6 mmol/L 是決定性數字</b>：腎臟正在全力保氯保鈉，代表氯反應型鹼中毒且致病事件<b>已經結束</b>（遠期嘔吐）。琺瑯質侵蝕與 <b>Russell's sign</b>（手指關節結痂）支持自我催吐。Gitelman 與 thiazide 作用中都會是<b>尿 Cl⁻ 高</b>。治療：<b>生理食鹽水 + KCl</b>（補氯才能矯正鹼中毒）＋ 飲食障礙之心理照護。"},
+
+ {lv:2,node:"end_cortisol_high",story:"63 歲男性，小細胞肺癌，兩週內出現進行性肌無力、周邊水腫與新發高血壓 172/98、皮膚色素沉著。無庫欣外觀。",
+  labs:["K⁺ 2.2 mmol/L","HCO₃⁻ 36 mmol/L","Urine K/Cr 7.5 mmol/mmol","Renin 受抑制","Aldosterone 低","Cortisol 明顯升高"],
   opts:["異位性 ACTH 症候群","表象性礦物皮質酮過多 (AME)","11β-hydroxylase 缺乏","腎素分泌腫瘤"],
   a:0,
   path:"尿鉀高 → 鹼中毒 → 血壓高 → 醛固酮<b>低</b> → 皮質醇<b>高</b>",
   ex:"<b>Aldo ↓ / Renin ↓ / Cortisol ↑</b>：大量皮質醇壓垮腎小管 11β-HSD2，直接活化礦物皮質酮受體。小細胞肺癌之<b>異位性 ACTH</b> 起病快，來不及出現典型庫欣外觀，反而以<b>嚴重低血鉀、代謝性鹼中毒與色素沉著</b>表現。AME 與 Liddle 是 cortisol <b>正常</b>，CAH 是 cortisol <b>低</b>。"},
 
- {story:"19 歲男性，油漆工，被送急診時四肢無力幾乎無法行走。同事表示他常吸食強力膠。",
-  labs:["K⁺ 1.8 mmol/L","HCO₃⁻ 14 mmol/L","Anion gap 11","Urine K 48 mmol/L","Urine osmolar gap 165 mOsm/kg","Urine pH 5.2"],
+ {lv:2,node:"end_acid_highnh4",story:"19 歲男性，油漆工，被送急診時四肢無力幾乎無法行走。同事表示他常吸食強力膠。",
+  labs:["K⁺ 1.8 mmol/L","HCO₃⁻ 14 mmol/L","Anion gap 11","Urine K/Cr 6.2 mmol/mmol","Urine osmolar gap 165 mOsm/kg","Urine pH 5.2"],
   opts:["遠端腎小管酸中毒","甲苯 (toluene) 濫用","水楊酸中毒","Bartter 症候群"],
   a:1,
   path:"尿鉀<b>高</b> → 代謝性<b>酸中毒</b> → 尿液 NH₄⁺ <b>高</b> (osmolar gap 165)",
   ex:"吸膠 → 甲苯代謝為 <b>hippurate</b>，是不可再吸收陰離子，隨鈉送至遠端腎元使管腔更負電 → 大量排鉀。關鍵鑑別在<b>尿液滲透壓間隙 165 mOsm/kg（NH₄⁺ 排泄正常/增加）+ 尿 pH 5.2（可正常酸化）</b> → <b>不是</b> RTA。RTA 會是 NH₄⁺ 排泄過少（gap &lt; 100），dRTA 尿 pH 更會持續 &gt; 5.5。"},
 
- {story:"38 歲女性，因反覆疲倦就醫，堅稱無嘔吐、無服藥。BMI 17.5。牙齒琺瑯質侵蝕、右手指關節有結痂。血壓 100/62。",
-  labs:["K⁺ 2.8 mmol/L","HCO₃⁻ 34 mmol/L","Urine Cl⁻ 6 mmol/L","Urine Na⁺ 8 mmol/L","Urine K 12 mmol/L","尿液利尿劑篩檢陰性"],
-  opts:["Gitelman 症候群","遠期嘔吐 (self-induced vomiting)","原發性高醛固酮症","近期使用 thiazide"],
-  a:1,
-  path:"尿鉀<b>低</b> → 代謝性<b>鹼中毒</b>（或走高尿鉀分支：尿 Cl⁻ 低 → 尿 Na⁺ 低）",
-  ex:"<b>尿 Cl⁻ 6 mmol/L 是決定性數字</b>：腎臟正在全力保氯保鈉，代表氯反應型鹼中毒且致病事件<b>已經結束</b>（遠期嘔吐）。琺瑯質侵蝕與 <b>Russell's sign</b>（手指關節結痂）支持自我催吐。Gitelman 與 thiazide 作用中都會是<b>尿 Cl⁻ 高</b>。治療：<b>生理食鹽水 + KCl</b>（補氯才能矯正鹼中毒）＋ 飲食障礙之心理照護。"},
+ {lv:2,node:"end_acid_highnh4",story:"38 歲男性，第 1 型糖尿病，兩天沒打胰島素，嘔吐後送急診。心電圖見 U 波。血糖 480 mg/dL、pH 7.12、血酮陽性。",
+  labs:["K⁺ 3.0 mmol/L","HCO₃⁻ 9 mmol/L","Anion gap 28"],
+  opts:["先靜脈補鉀，待血鉀回升後才開始胰島素","立刻開始 0.1 U/kg/h 胰島素","先給 NaHCO₃ 矯正酸中毒","先等 24 小時尿鉀結果再處理"],
+  a:0,
+  path:"DKA 治療前血鉀通常正常或偏高；<b>一開始就低</b>代表缺鉀極嚴重",
+  ex:"胰島素會把 K⁺ 推進細胞，開始前血鉀已低會有心律不整與呼吸肌無力的風險。<b>起始胰島素的門檻</b>：UpToDate 為 K⁺ &gt; 3.3 mmol/L；2024 共識為 ≥ 3.5 mmol/L。兩者方向相同，院內流程請擇一遵循。NaHCO₃ 一樣會讓 K⁺ 內移。"},
 
- {story:"71 歲女性，因高血壓與便祕長期自行服用中藥與甘草糖，近期血壓上升至 164/96 並出現下肢無力。未使用利尿劑或類固醇。",
-  labs:["K⁺ 2.6 mmol/L","HCO₃⁻ 33 mmol/L","Urine K 46 mmol/L","Renin 受抑制","Aldosterone 低","Cortisol 正常"],
-  opts:["原發性高醛固酮症","甘草 (licorice) 誘發之表象性礦物皮質酮過多","庫欣氏病","17α-hydroxylase 缺乏"],
+ {lv:2,node:"end_rta",story:"42 歲女性，四肢無力、呼吸費力。乾口乾眼多年。腎臟超音波有腎鈣化。血氣 pH 7.15。",
+  labs:["K⁺ 1.8 mmol/L","HCO₃⁻ 10 mmol/L","Anion gap 10","Urine pH 6.7","Urine osmolar gap 50 mOsm/kg"],
+  opts:["立即大量 NaHCO₃，酸中毒矯正後鉀自然回升","暫不處理，先做氯化銨負荷試驗","給含 5% 葡萄糖的 KCl 輸液","先靜脈補 KCl，血鉀回到安全範圍後才給鹼"],
+  a:3,
+  path:"尿鉀高 → 酸中毒 → 尿 NH₄⁺ <b>低</b> → dRTA（疑 Sjögren）",
+  ex:"這是<b>補鉀順序</b>的經典陷阱：先給鹼會讓 K⁺ 快速進入細胞，K⁺ 1.8 的病人可能因此呼吸衰竭或心跳停止。含葡萄糖輸液同樣因胰島素分泌而使血鉀下降。先用不含葡萄糖的 KCl 把血鉀拉回安全範圍，再開始鹼性治療，長期用 K citrate。"},
+
+ {lv:2,node:"emergency",story:"70 公斤男性，K⁺ 2.3 mmol/L，肌肉無力併頻發 PVC，已接上連續心電圖。只有周邊靜脈留置針，目前無法放中央導管。依本頁 WAHT-PHA-020 規範，下列何者最恰當？",
+  labs:["K⁺ 2.3 mmol/L","Mg²⁺ 1.7 mg/dL","Cr 1.0 mg/dL"],
+  opts:["KCl 40 mmol 加入 5% 葡萄糖 500 mL（80 mmol/L）","KCl 80 mmol/L 周邊輸注 30 mmol/hr","預混 KCl 40 mmol/L NaCl 0.9%，由 10 mmol/hr 起，緊急時在監視下至多 20 mmol/hr","只給口服 KCl，避免靜脈補鉀"],
+  a:2,
+  path:"<b>急症</b> → 預混、周邊 ≤ 40 mmol/L、速率 ≤ 10（監視下 ≤ 20）mmol/hr",
+  ex:"NaCl 0.9% 1 L 含 KCl 40 mmol，250 mL/hr 即 10 mmol/hr，500 mL/hr 為 20 mmol/hr。葡萄糖液會使血鉀更低；&gt; 40 mmol/L 須走中央導管並於 CCU/ICU 執行。重度低血鉀合併症狀時口服很少足夠。UpToDate 另記載危及生命時曾用更高速率，但屬加護環境的做法，本頁不採用。"},
+
+ {lv:3,node:"urinek",check:{x:{pk:2.8,uk:30,ucr:120/11.312},kcr:2.83},story:"52 歲病人 K⁺ 2.8 mmol/L。Spot urine：K⁺ 30 mmol/L、Creatinine 120 mg/dL。住院醫師計算 30 ÷ 120 = 0.25，判讀為腎外流失。正確的判讀是？",
+  labs:["Urine K⁺ 30 mmol/L","Urine Cr 120 mg/dL"],
+  opts:["K/Cr ≈ 2.8 mmol/mmol（≈ 25 mmol/g），屬腎性流失","K/Cr 0.25 正確，屬腎外流失","K/Cr ≈ 0.28 mmol/mmol，屬腎外流失","K/Cr ≈ 28 mmol/mmol，屬檢體錯誤"],
+  a:0,
+  path:"Cr 120 mg/dL ÷ 11.312 = 10.6 mmol/L → 30 ÷ 10.6 = <b>2.83 mmol/mmol</b>",
+  ex:"K⁺ 是 mmol/L、Cr 是 mg/dL，<b>單位沒換算就相除</b>會差一個數量級，答案正好反過來。換算成 mmol/g：2.83 × 8.84 ≈ 25 mmol/g。低血鉀時若尿鉀來自腎外，K/Cr 通常 &lt; 1.5 mmol/mmol（13 mEq/g）。"},
+
+ {lv:3,node:"uca",check:{x:{pk:2.8,uca:0.4233*7.072,ucr:7.072},cacrClass:"gray",cacrMg:0.15},story:"24 歲女性，血壓 104/66、K⁺ 2.8、HCO₃⁻ 30、尿 Cl⁻ 55、尿 Na⁺ 60。報告 Urine Ca/Cr 為 0.15 mg/mg。同事依「&lt; 0.2」判定為 Gitelman，你怎麼看？",
+  labs:["Urine Ca/Cr 0.15 mg/mg","Mg²⁺ 待驗","尿液利尿劑篩檢 待驗"],
+  opts:["同意 Gitelman，因為 0.15 &lt; 0.2","應判定 Bartter，因為 &gt; 0.07","換算約 0.42 mmol/mmol，落在交界區，改看血鎂、發病年齡與利尿劑篩檢","Ca/Cr 在低血鉀時無意義，應改驗 24 小時尿鉀"],
+  a:2,
+  path:"mg/mg × 2.82 = mmol/mmol → <b>0.15 × 2.82 ≈ 0.42</b>",
+  ex:"KDIGO 2017 的 Gitelman 低尿鈣定義是 <b>&lt; 0.2 mmol/mmol</b>（≈ 0.07 mg/mg），不是 0.2 mg/mg。0.42 mmol/mmol 也還沒到高尿鈣（&gt; 0.57 mmol/mmol，即 0.20 mg/mg）。交界值不要硬分，看血鎂（顯著低鎂偏 Gitelman）、發病年齡與尿液利尿劑篩檢。"},
+
+ {lv:3,node:"aldo",story:"52 歲女性，高血壓 158/96，K⁺ 2.7 mmol/L，HCO₃⁻ 30。已服 spironolactone 50 mg/day 與 losartan。今日抽血血鉀仍低。下列判讀何者最正確？",
+  labs:["Aldosterone 9 ng/dL","PRA 3.2 ng/mL/h","ARR 2.8"],
+  opts:["ARR 低，已排除原發性高醛固酮症","腎素未被壓抑，應改查腎動脈狹窄","Aldosterone 不高，走皮質醇分支即可","此結果不能排除 PA：補鉀後重驗，必要時調整干擾藥物"],
+  a:3,
+  path:"高血壓 + 低血鉀 + 鹼中毒 → ARR 有<b>三個偽陰性因素</b>",
+  ex:"<b>低血鉀</b>抑制醛固酮分泌；<b>MRA 與 ARB</b>都會使腎素上升。三者都讓 ARR 偏低，因此這張報告不能用來排除。2025 Endocrine Society 指引允許先不停藥初篩，但結果與臨床不符時要調整干擾藥物再驗。反過來，若服 MRA 或 ARB 時腎素仍受抑制，反而更支持 PA。"},
+
+ {lv:3,node:"end_cortisol_normal",story:"17 歲男性，血壓 170/104，父親與姑姑都在 30 多歲前發生高血壓與中風。服 spironolactone 兩個月血壓與血鉀都沒改善，改 amiloride 後血鉀回到 4.0。",
+  labs:["K⁺ 3.0 mmol/L","HCO₃⁻ 31 mmol/L","Renin 受抑制","Aldosterone 低","Cortisol 正常"],
+  opts:["表象性礦物皮質酮過多 (AME)","Liddle 氏症候群","家族性高醛固酮症第一型 (GRA)","11β-hydroxylase 缺乏"],
   a:1,
-  path:"尿鉀高 → 鹼中毒 → 血壓高 → 醛固酮<b>低</b> → 皮質醇<b>正常</b>",
-  ex:"<b>Aldo ↓ / Renin ↓ / Cortisol 正常</b> 這一群包括甘草、carbenoxolone、AME、Liddle 氏症候群與 DOC 分泌腫瘤。甘草中的 <b>glycyrrhizic acid 抑制 11β-HSD2</b>，使正常量的皮質醇得以作用於礦物皮質酮受體。<b>這是最容易治好的一群 — 停用即可恢復</b>，所以中藥、甘草糖、青草茶、口嚼菸草的病史務必主動詢問。"}
+  path:"血壓高 → 醛固酮<b>低</b> → 皮質醇<b>正常</b> → 治療反應",
+  ex:"ENaC 持續開啟（SCNN1B/SCNN1G 突變）不經過礦物皮質酮受體，所以 <b>MR 拮抗劑無效、直接阻斷 ENaC 的 amiloride 有效</b>。體染色體顯性，家族史明顯。AME 走的是 MR，應對 spironolactone 有反應，且為隱性遺傳。GRA 的醛固酮應該高，11β-OHD 的皮質醇應該低。"},
+
+ {lv:3,node:"end_thiazide",check:{edelman:{k:60,tbw:22.5,rise:2.67}},story:"68 歲女性 50 公斤，thiazide 引起 Na⁺ 118、K⁺ 2.4 mmol/L。12 小時內只給了 KCl 60 mmol（NaCl 0.9% 溶液的鈉暫不計）。依 Edelman 概念，這些鉀大約會讓血鈉上升多少？（TBW 取 0.45 × 體重，不計尿液流失）",
+  labs:["Na⁺ 118 mmol/L","K⁺ 2.4 mmol/L","體重 50 kg"],
+  opts:["完全不影響血鈉，只需計算補鈉量","約 0.3 mmol/L，可忽略","約 2.7 mmol/L，要算進每日矯正額度","約 8 mmol/L，已達 24 小時上限"],
+  a:2,
+  path:"60 mmol ÷ (0.45 × 50 = 22.5 L) ≈ <b>2.7 mmol/L</b>",
+  ex:"K⁺ 進入細胞會把 Na⁺ 換出或讓水移入細胞，補鉀在血鈉上的效果<b>與補鈉相當</b>。低血鉀本身是滲透性脫髓鞘的危險因子，屬高風險族群，專家建議每日上升目標 4–6、上限 8 mmol/L。忘了算鉀，就容易過度矯正。此公式只是粗估，仍要頻繁驗血鈉。"},
+
+ {lv:3,node:"end_rta",story:"47 歲男性，HIV 長期使用 tenofovir disoproxil。肌肉無力、骨痛。血糖正常但尿糖 3+。",
+  labs:["K⁺ 2.8 mmol/L","HCO₃⁻ 16 mmol/L","Cl⁻ 112 mmol/L","PO₄ 1.6 mg/dL","Urine pH 5.2","Urine glucose 3+"],
+  opts:["近端腎小管酸中毒 / Fanconi 症候群","遠端腎小管酸中毒","慢性腹瀉","甲苯濫用"],
+  a:0,
+  path:"尿鉀高 → 酸中毒、正常 AG → 尿 NH₄⁺ 低 → <b>尿 pH 可 &lt; 5.5 + 尿糖 + 低血磷</b>",
+  ex:"近端 RTA 的腎臟在血中 HCO₃⁻ 降到新閾值後，<b>遠端仍可酸化</b>，尿 pH 可低於 5.5，不能只憑尿 pH 排除 RTA。血糖正常的尿糖、低血磷（常合併胺基酸尿）指向 <b>Fanconi</b>，tenofovir 是典型藥物。治療補鹼時 HCO₃⁻ 上升會增加尿鉀流失，需同時補鉀。"},
+
+ {lv:3,node:"end_ucl_high_na_low",check:{x:{pk:2.7,shco3:30,uk:22,ucr:75/11.312,una:8,ucl:45},route:"high_alk_bp",uclClass:"high"},story:"24 歲女性，BMI 18，主訴疲倦，否認用藥。血壓 100/62。大腸鏡曾見 melanosis coli。尿液利尿劑篩檢陰性。",
+  labs:["K⁺ 2.7 mmol/L","HCO₃⁻ 30 mmol/L","Urine K⁺ 22 mmol/L","Urine Cr 75 mg/dL","Urine Na⁺ 8 mmol/L","Urine Cl⁻ 45 mmol/L"],
+  opts:["Gitelman 症候群","作用中的 loop 利尿劑","近期嘔吐","瀉劑濫用"],
+  a:3,
+  path:"鹼中毒 → 血壓正常 → 尿 Cl⁻ <b>高</b> → 尿 Na⁺ <b>低</b>",
+  ex:"教科書印象是瀉劑造成酸中毒，但部分瀉劑濫用者反而呈<b>代謝性鹼中毒</b>。線索在 <b>尿 Na⁺ 明顯低於尿 Cl⁻</b>（尿中氯由 NH₄⁺ 帶出）。Gitelman、Bartter 與作用中的利尿劑，尿鈉與尿氯應相當；嘔吐則相反，尿鈉遠高於尿氯。"}
 ];
 /*CASES-END*/
+
+/*TEACH-START*/
+/* Worked demo cases. Field values use the calculator's units (Cr and Ca in mg/dL).
+   steps: walk through TREE; each step's node must lead to the next (checked by tests.cjs).
+   route: what the calculator alone reaches from these numbers. */
+const DEMOS=[
+ {id:"d1",title:"補不起來的心衰竭病人",tag:"急症 · 低血鎂",
+  stem:"68 歲男性，心衰竭。兩週前 furosemide 加到 80 mg/day，另服 digoxin。主訴心悸、無力。BP 118/70，無水腫，無嘔吐腹瀉。心電圖 QTc 520 ms、U 波、頻發 PVC。病房已補 KCl 兩天，血鉀幾乎沒升。",
+  labs:["K⁺ 2.6 mmol/L","Mg²⁺ 1.1 mg/dL","HCO₃⁻ 33 mmol/L","Na⁺ 134","Cl⁻ 90","Cr 1.2 mg/dL","Urine K⁺ 45","Urine Cr 70 mg/dL","Urine Na⁺ 70","Urine Cl⁻ 75","Urine Ca 17 mg/dL"],
+  input:{pk:2.6,pcr:1.2,posm:285,sna:134,scl:90,shco3:33,uk:45,ucr:70,uosm:420,una:70,ucl:75,uca:17},
+  route:"high_alk_bp",end:"end_loop",
+  steps:[
+   {n:"start",to:"emergency",why:"QTc 延長、U 波加上頻發 PVC，又在用 digoxin，符合急症。先處理，不等病因。"},
+   {n:"emergency",to:"pseudo",why:"連續心電圖、靜脈 KCl，同時靜脈補鎂。穩定後再回頭找原因。"},
+   {n:"pseudo",to:"intake",why:"WBC 正常、有症狀，是真的低血鉀。"},
+   {n:"intake",to:"shift",why:"進食正常，不足以解釋。"},
+   {n:"shift",to:"urinek",why:"慢性、沒有急性誘因，也沒有 β2 agonist 或胰島素。"},
+   {n:"urinek",to:"high_ab",why:"K/Cr = 45 ÷ (70 ÷ 11.312) ≈ 7.3 mmol/mmol，遠高於 2，是腎性流失。"},
+   {n:"high_ab",to:"high_alk_bp",why:"HCO₃⁻ 33，代謝性鹼中毒。"},
+   {n:"high_alk_bp",to:"alk_ucl",why:"BP 118/70，不走醛固酮軸線。"},
+   {n:"alk_ucl",to:"ucl_high_na",why:"尿 Cl⁻ 75，腎臟正在丟氯，表示利尿劑仍在作用。"},
+   {n:"ucl_high_na",to:"uca",why:"尿 Na⁺ 70，與尿氯相當，是腎小管鹽類流失。"},
+   {n:"uca",to:"end_loop",why:"Ca/Cr = 17 ÷ 70 ≈ 0.24 mg/mg，高尿鈣，符合 loop 利尿劑。"}
+  ],
+  tx:["<b>靜脈補鎂並補 KCl</b>：血鎂未補足前，KCl 效果很差。硫酸鎂劑量依院內規範。","KCl 走周邊時濃度 ≤ 40 mmol/L；在連續心電圖下才超過 10 mmol/hr（至多 20）。","血鉀每 2–4 小時追蹤，連同血鎂與 digoxin 濃度。","穩定後檢討利尿劑劑量；心衰竭若適合 MRA，也有助於保鉀，但要注意腎功能與高血鉀。"],
+  pit:"「KCl 補兩天都不升」的第一個反應應該是<b>驗鎂</b>，不是加倍 KCl。低血鉀也會放大 digoxin 的毒性。"},
+
+ {id:"d2",title:"喝完手搖飲後爬不起來",tag:"細胞內移 · 計算機的盲點",
+  stem:"26 歲男性，前晚吃炸物、喝全糖手搖飲，清晨兩腳無力下不了床。近三個月體重減輕 5 公斤、手抖。心跳 112，BP 136/70。心電圖竇性心搏過速併 U 波。無腹瀉、未用藥。",
+  labs:["K⁺ 2.1 mmol/L","PO₄ 1.6 mg/dL","HCO₃⁻ 24 mmol/L","TSH < 0.01","Free T4 高","Urine K⁺ 12","Urine Cr 110 mg/dL"],
+  input:{pk:2.1,pcr:0.8,posm:288,sna:141,scl:105,shco3:24,uk:12,ucr:110,uosm:620,una:60,ucl:70},
+  route:"end_low_normal",end:"end_shift",
+  steps:[
+   {n:"start",to:"emergency",why:"K⁺ &lt; 2.5 且麻痺，屬急症。但補鉀方式與一般缺鉀不同。"},
+   {n:"emergency",to:"pseudo",why:"先上監視器，同時想到內移型，補鉀要保守。"},
+   {n:"pseudo",to:"intake",why:"症狀與數值相符。"},
+   {n:"intake",to:"shift",why:"一餐前都還正常，不是攝取不足。"},
+   {n:"shift",to:"end_shift",why:"急性發作、高醣餐誘發、尿鉀低（K/Cr ≈ 1.2）、低血磷、TSH 被抑制，就是 TPP。"}
+  ],
+  tx:["<b>少量、低速補鉀</b>。週期性麻痺治療後有 40–60% 的發作出現反彈性高血鉀，一系列 30 名病人中有 19 名在平均補 63 mmol 後血鉀 &gt; 5 mmol/L。","非選擇性 β-blocker 可快速逆轉，且少見反彈。Lin 2001 報告口服 propranolol 3 mg/kg（僅 2 例），氣喘等禁忌要先排除。","血鉀每 2–4 小時追蹤，全程心電圖監視。","麻痺緩解後處理甲狀腺亢進，甲狀腺功能恢復正常後才不再發作。"],
+  pit:"把這組數字輸入計算機，只會得到「尿鉀低 + 酸鹼正常 → 流汗或攝取不足」，因為<b>計算機看不到麻痺與發病速度</b>。急性無力時，要自己回到 Step 4。"},
+
+ {id:"d3",title:"乾眼乾口，然後四肢癱軟",tag:"酸中毒 · 補鉀順序",
+  stem:"42 歲女性，乾口乾眼多年，近一週四肢無力到無法起身，呼吸略喘。BP 110/70。腎臟超音波見雙側腎鈣化。血氣 pH 7.22。",
+  labs:["K⁺ 1.9 mmol/L","HCO₃⁻ 13 mmol/L","Na⁺ 139","Cl⁻ 116","Urine pH 6.6","Urine K⁺ 28","Urine Cr 60 mg/dL","Urine Na⁺ 62","Urine Cl⁻ 62","Urine urea 90"],
+  input:{pk:1.9,pcr:0.8,posm:285,sna:139,scl:116,shco3:13,uk:28,ucr:60,uosm:320,una:62,ucl:62,uurea:90},
+  route:"end_rta",end:"end_rta",
+  steps:[
+   {n:"start",to:"emergency",why:"K⁺ 1.9 合併四肢無力與呼吸費力，可能進展為呼吸衰竭。"},
+   {n:"emergency",to:"pseudo",why:"這裡最重要的是順序：<b>先 KCl，後鹼</b>。"},
+   {n:"pseudo",to:"intake",why:"有症狀，WBC 正常。"},
+   {n:"intake",to:"shift",why:"食慾尚可。"},
+   {n:"shift",to:"urinek",why:"病程一週且有酸中毒，不符合單純內移。"},
+   {n:"urinek",to:"high_ab",why:"K/Cr ≈ 5.3 mmol/mmol，腎性流失。"},
+   {n:"high_ab",to:"high_acid_nh4",why:"HCO₃⁻ 13，AG = 139 − 116 − 13 = 10，正常 AG 代謝性酸中毒。"},
+   {n:"high_acid_nh4",to:"end_rta",why:"UOG = 320 − [2(62 + 28) + 90] = 50，NH₄⁺ 約 25 mmol/L，排泄太少。尿 pH 6.6 且有腎鈣化，符合遠端 RTA。"}
+  ],
+  tx:["先以不含葡萄糖的靜脈 KCl 把血鉀拉回安全範圍，全程監視，並評估呼吸肌。","血鉀回穩後才給鹼。長期以 K citrate 同時補鉀與鹼。","驗 anti-SSA/SSB、ANA，照會風濕免疫科。","追蹤腎鈣化與腎功能。"],
+  pit:"看到 pH 7.22 就先推 NaHCO₃，K⁺ 會快速內移，可能造成呼吸停止。"},
+
+ {id:"d4",title:"複方降壓藥：低血鉀遇上低血鈉",tag:"Thiazide · 同時看鈉",
+  stem:"74 歲女性 50 公斤，服 amlodipine / hydrochlorothiazide 複方半年。近日噁心、步態不穩，意識略遲鈍。BP 118/66，無水腫。心電圖無 U 波或 QT 延長。",
+  labs:["K⁺ 2.7 mmol/L","Na⁺ 116","Cl⁻ 80","HCO₃⁻ 31 mmol/L","Mg²⁺ 1.5 mg/dL","Urine K⁺ 38","Urine Cr 45 mg/dL","Urine Na⁺ 70","Urine Cl⁻ 75","Urine Ca 3 mg/dL"],
+  input:{pk:2.7,pcr:0.7,posm:248,sna:116,scl:80,shco3:31,uk:38,ucr:45,uosm:410,una:70,ucl:75,uca:3},
+  route:"high_alk_bp",end:"end_thiazide",
+  steps:[
+   {n:"start",to:"pseudo",why:"未達低血鉀急症條件。意識改變主要來自低血鈉，須依低血鈉流程同步處理。"},
+   {n:"pseudo",to:"intake",why:"WBC 正常。"},
+   {n:"intake",to:"shift",why:"雖然食慾差，但尿鉀不低。"},
+   {n:"shift",to:"urinek",why:"沒有內移線索。"},
+   {n:"urinek",to:"high_ab",why:"K/Cr = 38 ÷ (45 ÷ 11.312) ≈ 9.6 mmol/mmol，腎性流失。"},
+   {n:"high_ab",to:"high_alk_bp",why:"HCO₃⁻ 31，代謝性鹼中毒。"},
+   {n:"high_alk_bp",to:"alk_ucl",why:"血壓在用藥下正常。"},
+   {n:"alk_ucl",to:"ucl_high_na",why:"尿 Cl⁻ 75，藥物仍在作用。"},
+   {n:"ucl_high_na",to:"uca",why:"尿 Na⁺ 70，與尿氯相當。"},
+   {n:"uca",to:"end_thiazide",why:"Ca/Cr = 3 ÷ 45 ≈ 0.067 mg/mg（≈ 0.19 mmol/mmol），低尿鈣，加上用藥史就是 thiazide。"}
+  ],
+  tx:["停用 thiazide，之後避免再用同類藥。","<b>算進鉀</b>：TBW ≈ 0.45 × 50 = 22.5 L，每補 40 mmol KCl 血鈉約升 1.8 mmol/L；補 120 mmol 就約 5.3 mmol/L。","低血鉀屬滲透性脫髓鞘高風險：每日目標 4–6、上限 8 mmol/L。","停藥與補液後可能突然大量排水，血鈉上升更快，需每 2–4 小時驗血鈉並看尿量。","同步補鎂。"],
+  pit:"把低血鉀與低血鈉分開處理時，兩邊各自「合理」，加起來卻可能過度矯正。"},
+
+ {id:"d5",title:"年輕高血壓合併低血鉀",tag:"高血壓 · 原發性高醛固酮症",
+  stem:"44 歲男性，高血壓 5 年，服 amlodipine + losartan 仍 162/98。健檢意外發現低血鉀，無服利尿劑，否認甘草或中藥。",
+  labs:["K⁺ 2.9 mmol/L","HCO₃⁻ 30 mmol/L","Na⁺ 143","Cl⁻ 103","Urine K⁺ 44","Urine Cr 95 mg/dL","Aldosterone 28 ng/dL","PRA < 0.2 ng/mL/h"],
+  input:{pk:2.9,pcr:0.9,posm:292,sna:143,scl:103,shco3:30,uk:44,ucr:95,uosm:640,una:90,ucl:90},
+  route:"high_alk_bp",end:"end_primary",
+  steps:[
+   {n:"start",to:"pseudo",why:"無症狀，心電圖正常，門診處理。"},
+   {n:"pseudo",to:"intake",why:"WBC 正常。"},
+   {n:"intake",to:"shift",why:"飲食正常。"},
+   {n:"shift",to:"urinek",why:"慢性，無誘因。"},
+   {n:"urinek",to:"high_ab",why:"K/Cr = 44 ÷ (95 ÷ 11.312) ≈ 5.2 mmol/mmol，腎性流失。"},
+   {n:"high_ab",to:"high_alk_bp",why:"HCO₃⁻ 30，代謝性鹼中毒。"},
+   {n:"high_alk_bp",to:"aldo",why:"血壓高，且未用利尿劑。"},
+   {n:"aldo",to:"aldo_renin",why:"Aldosterone 28 ng/dL，在低血鉀抑制下仍然很高。"},
+   {n:"aldo_renin",to:"end_primary",why:"服 losartan 本應使腎素上升，PRA 卻 &lt; 0.2，腎素明確受抑制。"}
+  ],
+  tx:["補鉀；自發性低血鉀 + 腎素受抑制 + 醛固酮 ≥ 20 ng/dL 屬高機率，2016 指引列為可免確認試驗，2025 指引也只在中度機率且考慮手術時才做抑制試驗。","腎上腺 CT 排除腫瘤，影像不能取代定側。","願意手術者做腎上腺靜脈取樣；單側可腹腔鏡切除。","雙側或不手術者用 MRA，並以腎素回升評估療效。"],
+  pit:"「有 ARB 所以 ARR 不準」只說對一半。ARB 造成偽陰性，所以<b>用藥下仍呈陽性，可信度更高</b>。"},
+
+ {id:"d6",title:"嘔吐五天，尿鉀卻很高",tag:"鹼中毒 · 尿鈉尿氯矛盾",
+  stem:"63 歲男性，胃出口阻塞，反覆嘔吐五天。BP 94/58，姿勢性低血壓，黏膜乾。心電圖僅竇性心搏過速，無 U 波或 QT 延長。",
+  labs:["K⁺ 2.6 mmol/L","HCO₃⁻ 42 mmol/L","Na⁺ 134","Cl⁻ 78","Cr 1.4 mg/dL","Urine pH 7.6","Urine K⁺ 48","Urine Cr 80 mg/dL","Urine Na⁺ 66","Urine Cl⁻ 7"],
+  input:{pk:2.6,pcr:1.4,posm:285,sna:134,scl:78,shco3:42,uk:48,ucr:80,uosm:520,una:66,ucl:7},
+  route:"high_alk_bp",end:"end_ucl_low_na_high",
+  steps:[
+   {n:"start",to:"pseudo",why:"無麻痺、無 ECG 變化，K⁺ ≥ 2.5，不符合急症條件，走鑑別並積極補液補鉀。"},
+   {n:"pseudo",to:"intake",why:"WBC 正常。"},
+   {n:"intake",to:"shift",why:"嘔吐是流失，不只是吃不下。"},
+   {n:"shift",to:"urinek",why:"沒有內移線索。"},
+   {n:"urinek",to:"high_ab",why:"K/Cr ≈ 6.8 mmol/mmol，看似「腎性流失」。"},
+   {n:"high_ab",to:"high_alk_bp",why:"HCO₃⁻ 42，明顯代謝性鹼中毒。"},
+   {n:"high_alk_bp",to:"alk_ucl",why:"血壓偏低。"},
+   {n:"alk_ucl",to:"ucl_low_na",why:"尿 Cl⁻ 僅 7，腎臟正在保氯。"},
+   {n:"ucl_low_na",to:"end_ucl_low_na_high",why:"尿 Na⁺ 66 遠高於尿 Cl⁻ 7，加上尿 pH 7.6，是碳酸氫鈉尿：嘔吐仍在發生。"}
+  ],
+  tx:["<b>生理食鹽水 + KCl</b>：氯反應型鹼中毒要補氯才矯正得了。不可用 K citrate 或 KHCO₃。","解除阻塞，鼻胃管引流者考慮 PPI 減少氯流失。","血鉀與血鈉每 2–4 小時追蹤；補液後血鉀可能再下降。"],
+  pit:"胃液本身含鉀不多，<b>大部分鉀是從腎臟丟掉的</b>，所以尿鉀高不代表腎臟有病。也不能用 66 的尿鈉說病人體液足夠，要看尿氯。"}
+];
+
+/* Mind map. go: TREE node opened in the step-by-step tab; tab: another tab */
+const MAP=[
+ {t:"1 · 先救命",c:"danger",go:"start",i:[
+   {t:"K⁺ &lt; 2.5 或任何 K⁺ 併 ECG 變化",go:"start"},
+   {t:"麻痺、呼吸衰竭、心律不整、digoxin",go:"start"},
+   {t:"連續 ECG + IV KCl + 補鎂",go:"emergency"},
+   {t:"避免葡萄糖液；酸中毒先補鉀再給鹼",go:"emergency"}]},
+ {t:"2 · 排除假象與攝取不足",c:"warn",go:"pseudo",i:[
+   {t:"WBC &gt; 10⁵/µL + 檢體久置 → 重抽",go:"end_pseudo"},
+   {t:"單純攝取不足需 &gt; 1 個月，常另有流失",go:"end_intake"}]},
+ {t:"3 · 細胞內移：補鉀要保守",c:"purple",go:"shift",i:[
+   {t:"TPP / 家族性週期性麻痺：尿鉀低、低血磷",go:"end_shift"},
+   {t:"胰島素、再餵食、β2 agonist",go:"end_shift"},
+   {t:"鋇、chloroquine、theophylline",go:"end_shift"},
+   {t:"反彈性高血鉀 40–60%；考慮 propranolol",go:"end_shift"}]},
+ {t:"4 · 分水嶺：尿鉀排泄",c:"accent",go:"urinek",i:[
+   {t:"24h 尿鉀 &lt; 15 低；15–30 交界；&gt; 30 高",go:"urinek"},
+   {t:"K/Cr &lt; 1.5 低；1.5–2.0 交界；&gt; 2.0 高 (mmol/mmol)",go:"urinek"},
+   {t:"TTKG &lt; 3 低；&gt; 4 高（Uosm &gt; Posm、UNa &gt; 25）",go:"urinek"},
+   {t:"單看尿鉀濃度不可靠",go:"urinek"}]},
+ {t:"5 · 尿鉀低",c:"teal",go:"low_ab",i:[
+   {t:"酸中毒 → 腹瀉、瀉劑、絨毛狀腺瘤",go:"end_low_acidosis"},
+   {t:"酸鹼正常 → 流汗、攝取不足；急性無力回頭看內移",go:"end_low_normal"},
+   {t:"鹼中毒 → 遠期嘔吐、遠期利尿劑",go:"end_low_alkalosis"}]},
+ {t:"6 · 尿鉀高 + 酸中毒",c:"teal",go:"high_acid_nh4",i:[
+   {t:"UOG &lt; 100 → RTA（dRTA 尿 pH &gt; 5.5；近端可 &lt; 5.5）",go:"end_rta"},
+   {t:"UOG &gt; 150 → 甲苯、腹瀉、DKA",go:"end_acid_highnh4"}]},
+ {t:"7 · 尿鉀高 + 鹼中毒 + 高血壓",c:"ok",go:"high_alk_bp",i:[
+   {t:"先問：是否正在用利尿劑",go:"high_alk_bp"},
+   {t:"Aldo ↑ Renin ↓ → 原發性高醛固酮症",go:"end_primary"},
+   {t:"Aldo ↑ Renin ↑ → 腎動脈狹窄、惡性高血壓",go:"end_secondary"},
+   {t:"Aldo ↓ Cortisol ↑ → 庫欣、異位 ACTH",go:"end_cortisol_high"},
+   {t:"Aldo ↓ Cortisol 正常 → 甘草、AME、Liddle",go:"end_cortisol_normal"},
+   {t:"Aldo ↓ Cortisol ↓ → CAH",go:"end_cortisol_low"}]},
+ {t:"8 · 尿鉀高 + 鹼中毒 + 血壓不高",c:"ok",go:"alk_ucl",i:[
+   {t:"UCl 低 + UNa 高 → 嘔吐進行中（尿 pH &gt; 7）",go:"end_ucl_low_na_high"},
+   {t:"UCl 低 + UNa 低 → 遠期嘔吐、遠期利尿劑",go:"end_ucl_low_na_low"},
+   {t:"UCl 高 + UNa 低 → 腹瀉、瀉劑",go:"end_ucl_high_na_low"},
+   {t:"Ca/Cr &gt; 0.20 mg/mg → loop、Bartter",go:"end_loop"},
+   {t:"Ca/Cr &lt; 0.2 mmol/mmol → thiazide、Gitelman",go:"end_thiazide"}]},
+ {t:"9 · 尿鉀高 + 酸鹼正常",c:"warn",go:"end_nonreab",i:[
+   {t:"低血鎂（cisplatin、gentamicin、ifosfamide）",go:"end_nonreab"},
+   {t:"不可再吸收陰離子：高劑量青黴素類",go:"end_nonreab"},
+   {t:"血壓高時，HCO₃⁻ 正常不排除 PA",go:"aldo"}]},
+ {t:"10 · 治療原則",c:"accent",tab:"tx",i:[
+   {t:"鹼中毒用 KCl；酸中毒用 K citrate / KHCO₃",tab:"tx"},
+   {t:"周邊 ≤ 40 mmol/L；≤ 10 mmol/hr（監視下 ≤ 20）",tab:"tx"},
+   {t:"補不起來先驗鎂",tab:"tx"},
+   {t:"合併低血鈉：補鉀要算進血鈉矯正",tab:"tx"}]}
+];
+/*TEACH-END*/
 // bold the test name, leave the value plain ("Urine K/Cr" | "0.8 mmol/mmol")
-function labParts(l){const m=l.match(/^(.*?)\s+((?:[<>≈≥≤]|&lt;|&gt;|\d|高|低|受|明顯|正常|陰性|陽性).*)$/);return m?[m[1],m[2]]:[l,""]}
+function labParts(l){const m=l.match(/^(.*?)\s+((?:[<>≈≥≤]|&lt;|&gt;|\d|高|低|受|明顯|正常|陰性|陽性|待驗).*)$/);return m?[m[1],m[2]]:[l,""]}
+const LV={1:"基礎",2:"進階",3:"高階"};
 let qi=0, ans=Array(CASES.length).fill(null);
-function renderQuiz(){
+function renderQuiz(focus){
   const c=CASES[qi], picked=ans[qi];
-  let h='<div class="cn">Case '+(qi+1)+' / '+CASES.length+'</div>'
+  let h='<div class="cn">第 '+(qi+1)+' / '+CASES.length+' 題 <span class="lv lv'+c.lv+'">'+LV[c.lv]+'</span></div>'
     +'<p class="story">'+c.story+'</p>'
     +'<div class="labs">'+c.labs.map(l=>{const p=labParts(l);return '<span class="lab"><b>'+p[0]+'</b> '+p[1]+'</span>'}).join('')+'</div>'
     +'<div class="qopts">'+c.opts.map((o,i)=>{
         let cls="qopt",mk="";
         if(picked!==null){
-          if(i===c.a){cls+=" right";mk="✓"}
-          else if(i===picked){cls+=" wrong";mk="✗"}
+          if(i===c.a){cls+=" right";mk="✓ 正確"}
+          else if(i===picked){cls+=" wrong";mk="✗ 你的答案"}
         }
         return '<button class="'+cls+'" data-i="'+i+'"'+(picked!==null?" disabled":"")+'>'+o+(mk?'<span class="mk">'+mk+'</span>':'')+'</button>';
       }).join('')+'</div>';
   if(picked!==null){
-    h+='<div class="expl"><div class="h">推理路徑 Path</div>'+c.path
-      +'<div class="h" style="margin-top:12px">說明 Explanation</div>'+c.ex+'</div>';
+    h+='<div class="expl" tabindex="-1"><div class="h">推理路徑 Path</div>'+c.path
+      +'<div class="h" style="margin-top:12px">說明 Explanation</div>'+c.ex
+      +'<div style="margin-top:12px"><button class="btn" data-open="'+c.node+'">在逐步鑑別開啟對應步驟 →</button></div></div>';
   }
-  document.getElementById("quizbox").innerHTML=h;
-  document.getElementById("quizbox").querySelectorAll(".qopt").forEach(b=>b.onclick=()=>{
-    ans[qi]=+b.dataset.i; renderQuiz();
-  });
+  const box=document.getElementById("quizbox");
+  box.innerHTML=h;
+  box.querySelectorAll(".qopt").forEach(b=>b.onclick=()=>{ans[qi]=+b.dataset.i;renderQuiz(true)});
   const done=ans.filter(a=>a!==null).length, right=ans.filter((a,i)=>a===CASES[i].a).length;
   document.getElementById("score").innerHTML="已作答 "+done+" / "+CASES.length+" · 答對 <b>"+right+"</b>";
   document.getElementById("q-prev").disabled = qi===0;
   document.getElementById("q-next").disabled = qi===CASES.length-1;
+  document.getElementById("qstrip").innerHTML=CASES.map((q,i)=>{
+    const st=ans[i]===null?"":ans[i]===q.a?" ok":" no";
+    const lab="第 "+(i+1)+" 題，"+LV[q.lv]+(ans[i]===null?"，未作答":ans[i]===q.a?"，答對":"，答錯");
+    return '<button class="qn lvb'+q.lv+st+(i===qi?" cur":"")+'" data-q="'+i+'" aria-label="'+lab+'"'+(i===qi?' aria-current="true"':'')+'>'+(i+1)+'</button>';
+  }).join('');
+  const sum=document.getElementById("qsummary");
+  if(done===CASES.length){
+    const rows=[1,2,3].map(l=>{const idx=CASES.map((q,i)=>q.lv===l?i:-1).filter(i=>i>=0);const r=idx.filter(i=>ans[i]===CASES[i].a).length;return '<span class="lab"><b>'+LV[l]+'</b> '+r+' / '+idx.length+'</span>'}).join('');
+    const miss=CASES.map((q,i)=>ans[i]===q.a?0:i+1).filter(Boolean);
+    sum.hidden=false;
+    sum.innerHTML='<div class="h">測驗結果：'+right+' / '+CASES.length+'</div><div class="labs" style="margin-top:6px">'+rows+'</div>'
+      +(miss.length?'<p style="margin:10px 0 0">再看一次第 '+miss.join("、")+' 題的說明。</p>':'<p style="margin:10px 0 0">全部答對。</p>');
+  }else{sum.hidden=true;sum.innerHTML=""}
+  if(focus){const e=box.querySelector(".expl"); if(e)e.focus({preventScroll:true})}
 }
-document.getElementById("q-next").onclick=()=>{if(qi<CASES.length-1){qi++;renderQuiz()}};
-document.getElementById("q-prev").onclick=()=>{if(qi>0){qi--;renderQuiz()}};
+document.getElementById("q-next").onclick=()=>{if(qi<CASES.length-1){qi++;renderQuiz();document.getElementById("quizbox").scrollIntoView({block:"nearest"})}};
+document.getElementById("q-prev").onclick=()=>{if(qi>0){qi--;renderQuiz();document.getElementById("quizbox").scrollIntoView({block:"nearest"})}};
 document.getElementById("q-reset").onclick=()=>{qi=0;ans=Array(CASES.length).fill(null);renderQuiz()};
+document.getElementById("qstrip").addEventListener("click",e=>{const b=e.target.closest("[data-q]");if(b){qi=+b.dataset.q;renderQuiz()}});
+document.getElementById("quizbox").addEventListener("click",e=>{const b=e.target.closest("[data-open]");if(b)openStep(b.dataset.open)});
+
+/* ==================================================================
+   9. WORKED DEMO CASES
+   ================================================================== */
+let demoI=0, demoShown=1;
+const FIELD_IDS=()=>F.filter(f=>f.id).map(f=>f.id);
+function loadDemoToCalc(d){
+  FIELD_IDS().forEach(id=>{document.getElementById("f_"+id).value = d.input[id]===undefined ? "" : d.input[id]});
+  ["pcr","ucr","uca"].forEach(id=>{document.getElementById("u_"+id).value="mgdl"});
+  calc(); setCalcBanner("示範病例「"+d.title+"」的數值，不是真實病人。修改任一欄位或按清空即解除。");
+  goTab("calc");
+}
+function openDemoInTree(d){
+  hist=d.steps.map(s=>s.n).concat(d.end); goTab("dx"); render(true);
+}
+function optLabel(node,to){
+  const n=TREE[node];
+  if(n.next&&n.next.go===to) return "穩定後繼續";
+  const o=(n.opts||[]).find(o=>o.go===to);
+  return o?shortLabel(o.e||o.l):"";
+}
+function renderDemo(){
+  const d=DEMOS[demoI], n=d.steps.length, all=demoShown>=n;
+  document.getElementById("demotabs").innerHTML=DEMOS.map((x,i)=>'<button class="demobtn" data-d="'+i+'" aria-pressed="'+(i===demoI)+'"><span class="dn">病例 '+(i+1)+'</span>'+x.title+'<span class="dt">'+x.tag+'</span></button>').join('');
+  const steps=d.steps.slice(0,demoShown).map((s,i)=>{
+    const t=TREE[s.n];
+    return '<li><div class="sq">'+(SHORT[s.n]?SHORT[s.n]+"：":"")+plain(t.title)+'</div><div class="sa"><b>'+escHTML(optLabel(s.n,s.to))+'</b> — '+s.why+'</div></li>';
+  }).join('');
+  const end=TREE[d.end];
+  document.getElementById("democard").innerHTML='<div class="disclaim" style="margin-bottom:14px"><b>示範病例：</b>情境與數值皆為教學虛構，不是真實病人，也不是處方。</div>'
+    +'<h3 class="dh">'+d.title+'</h3><p class="story">'+d.stem+'</p>'
+    +'<div class="labs">'+d.labs.map(l=>{const p=labParts(escHTML(l));return '<span class="lab"><b>'+p[0]+'</b> '+p[1]+'</span>'}).join('')+'</div>'
+    +'<div class="block"><h4>逐步推理（'+Math.min(demoShown,n)+' / '+n+'）</h4><ol class="dsteps">'+steps+'</ol>'
+    +'<div class="toolbar" style="margin:12px 0 0">'+(all?'':'<button class="btn primary" id="d-next">下一步 →</button><button class="btn" id="d-all">全部顯示</button>')+'<button class="btn" id="d-calc">把數值帶入計算機</button><button class="btn" id="d-tree">在逐步鑑別開啟</button></div></div>'
+    +(all?'<div class="block" id="d-end" tabindex="-1"><h4>結論</h4><p class="lead" style="margin:0"><b>'+end.title+'</b><br>'+end.en+'</p></div>'
+      +'<div class="block"><h4>處置重點</h4><ul>'+d.tx.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'
+      +'<div class="note"><b>陷阱：</b>'+d.pit+'</div>':'');
+  const q=id=>document.getElementById(id);
+  if(q("d-next")) q("d-next").onclick=()=>{demoShown++;renderDemo();const b=q("d-next")||q("d-end");if(b)b.focus({preventScroll:true})};
+  if(q("d-all")) q("d-all").onclick=()=>{demoShown=n;renderDemo();q("d-end").focus()};
+  q("d-calc").onclick=()=>loadDemoToCalc(d);
+  q("d-tree").onclick=()=>openDemoInTree(d);
+}
+document.getElementById("demotabs").addEventListener("click",e=>{const b=e.target.closest("[data-d]");if(!b)return;demoI=+b.dataset.d;demoShown=1;renderDemo();document.querySelector('[data-d="'+demoI+'"]').focus()});
+
+/* ==================================================================
+   10. MIND MAP
+   ================================================================== */
+function mapTarget(x){return x.go?' data-map-go="'+x.go+'"':' data-map-tab="'+x.tab+'"'}
+document.getElementById("mapwrap").innerHTML='<div class="maproot">低血鉀 K⁺ &lt; 3.5 mmol/L<small>先救命 → 排除假象 → 找內移 → 看尿鉀 → 看酸鹼 → 看血壓或尿氯</small></div><div class="mapgrid">'
+  +MAP.map(b=>'<details class="mapb" open style="--c:var(--'+b.c+')"><summary>'+b.t+'</summary><ul>'
+    +b.i.map(l=>'<li><button class="mapl"'+mapTarget(l)+'>'+l.t+'</button></li>').join('')+'</ul></details>').join('')+'</div>';
+document.getElementById("mapwrap").addEventListener("click",e=>{
+  const b=e.target.closest(".mapl"); if(!b)return;
+  if(b.dataset.mapGo) openStep(b.dataset.mapGo); else goTab(b.dataset.mapTab);
+});
+const setMap=o=>document.querySelectorAll("#mapwrap .mapb").forEach(d=>d.open=o);
+document.getElementById("map-open").onclick=()=>setMap(true);
+document.getElementById("map-close").onclick=()=>setMap(false);
+
+/* ---------- print: current tab only, with collapsed content opened and the chart fitted to the page ---------- */
+let zoomBeforePrint=null, mapBeforePrint=null;
+window.addEventListener("beforeprint",()=>{
+  mapBeforePrint=[...document.querySelectorAll("#mapwrap .mapb")].map(d=>d.open); setMap(true);
+  zoomBeforePrint=zoom; zi.style.zoom=1;
+  const w=zi.scrollWidth; if(w>0) zi.style.zoom=Math.min(1,660/w); // fits A4 portrait
+});
+window.addEventListener("afterprint",()=>{
+  if(mapBeforePrint) document.querySelectorAll("#mapwrap .mapb").forEach((d,i)=>d.open=mapBeforePrint[i]);
+  if(zoomBeforePrint!==null) setZoom(zoomBeforePrint);
+});
 
 /* ---------- boot ---------- */
-render(); renderQuiz();
-if(location.hash) goTab(location.hash.slice(1),true);
+render(); renderQuiz(); renderDemo();
+goTab(location.hash.slice(1)||"dx",true);
 </script>
 </body>
 </html>
